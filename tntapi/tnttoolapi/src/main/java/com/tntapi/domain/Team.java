@@ -26,9 +26,12 @@ public class Team {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
+	
 	@NotBlank(message = "Team name is required")
 	private String name;
+	
 	private String projectName;
+	
 	@NotBlank(message = "Team Code is Required")
 	@Size(min = 3,max = 5,message = "It should be between 3 to 5 characters")
 	@Column(updatable = false,unique = true)
