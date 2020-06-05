@@ -1,5 +1,8 @@
 package com.tntapi.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -26,6 +30,7 @@ public class User {
 	@NotBlank(message = "User name is required")
 	private String name;
 	@NotBlank(message = "Username is required")
+	@Column (unique = true)
 	private String username;
 	@NotBlank(message = "password is required")
 	private String password;
@@ -35,13 +40,30 @@ public class User {
 	@Column(updatable = false)
 	private String teamCode;
 	
+	private Integer taskSequence = 0;
 	//creating many to one relationship between user and team
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name="team_id",updatable =false , nullable = false)
 	@JsonIgnore
 	private Team team;
 	
+	//creating one to many relationship between user and todo 
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "user")
+	private List<Todo> todos= new ArrayList<>();
 	
+	
+	public Integer getTaskSequence() {
+		return taskSequence;
+	}
+	public void setTaskSequence(Integer taskSequence) {
+		this.taskSequence = taskSequence;
+	}
+	public List<Todo> getTodos() {
+		return todos;
+	}
+	public void setTodos(List<Todo> todos) {
+		this.todos = todos;
+	}
 	public String getUserCode() {
 		return userCode;
 	}
@@ -60,8 +82,6 @@ public class User {
 	public void setTeam(Team team) {
 		this.team = team;
 	}
-	
-	
 	public Long getId() {
 		return id;
 	}

@@ -7,34 +7,34 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tntapi.domain.Team;
+import com.tntapi.domain.Todo;
 import com.tntapi.service.MapValidationErrorService;
-import com.tntapi.service.TeamService;
+import com.tntapi.service.TodoService;
 
 @RestController
-@RequestMapping("/api/team")
+@RequestMapping("/api/todo")
 @CrossOrigin
-public class TeamController {
-	
+public class TodoController {
+
 	@Autowired
-	private TeamService teamService;
+	private TodoService todoService;
 	@Autowired
 	private MapValidationErrorService mapValidationErrorService;
 	
-	@PostMapping("")
-	public ResponseEntity<?> saveTeam(@Valid @RequestBody Team team, BindingResult result){
-		ResponseEntity<?> errorMap =mapValidationErrorService.mapValidateError(result);
-		if(errorMap !=null) {
+	@PostMapping("/{user_id}")
+	public ResponseEntity<?> addTodoTask(@Valid @RequestBody Todo todo, BindingResult result,
+			@PathVariable String user_id){
+		ResponseEntity<?> errorMap = mapValidationErrorService.mapValidateError(result);
+		if(errorMap!= null) {
 			return errorMap;
 		}
-		
-		Team newTeam =teamService.saveOrUpdate(team);
-		return new ResponseEntity<Team> (newTeam,HttpStatus.CREATED);
+		Todo newTodo = todoService.createTodoTask(todo, user_id);
+		return new ResponseEntity<Todo> (newTodo, HttpStatus.CREATED);
 	}
-
 }

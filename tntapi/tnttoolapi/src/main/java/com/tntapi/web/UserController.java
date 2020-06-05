@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +22,7 @@ import com.tntapi.service.UserService;
 
 @RestController
 @RequestMapping("api/user")
+@CrossOrigin
 public class UserController {
 
 	@Autowired
@@ -47,7 +49,7 @@ public class UserController {
 	}
 
 	@GetMapping("{team_id}")
-	public Iterable<User> getProjectBacklog(@PathVariable String team_id){
+	public Iterable<User> getUsers(@PathVariable String team_id){
 		return userService.findUserList(team_id);
 	}
 	
@@ -68,4 +70,9 @@ public class UserController {
 		return new ResponseEntity<String>("User successfully removed",HttpStatus.OK);
 	}
 	
+	@PostMapping("/login")
+	public ResponseEntity<?> loginUser(@RequestBody User user){
+		User user1 = userService.userLoginCheck(user.getUsername(), user.getPassword());
+		return new ResponseEntity<User>(user1 ,HttpStatus.OK);
+	}
 }
