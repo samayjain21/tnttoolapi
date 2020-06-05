@@ -61,7 +61,7 @@ public class UserService {
 	}
 
 	public List<User> findUserList(String teamCode) {
-		// find the user
+		// find the team
 		Team team = teamRepository.findByTeamCode(teamCode);
 		// team not found
 		if (team == null) {

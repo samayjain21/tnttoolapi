@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Team {
 	
@@ -35,6 +37,7 @@ public class Team {
 
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "team")
+	@JsonIgnore	
 	private List<User> users = new ArrayList<>();
 	
 	

@@ -32,11 +32,21 @@ public class Todo {
 	private int priority;
 	private String status;
 	private String comment;
+	@Column(updatable = false, nullable = false)
+	private String teamCode;
 	
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name="user_id",updatable =false , nullable = false)
 	@JsonIgnore
 	private User user;
+
+	public String getTeamCode() {
+		return teamCode;
+	}
+
+	public void setTeamCode(String teamCode) {
+		this.teamCode = teamCode;
+	}
 
 	public Long getId() {
 		return id;
