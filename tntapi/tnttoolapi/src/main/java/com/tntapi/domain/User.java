@@ -1,6 +1,7 @@
 package com.tntapi.domain;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -20,7 +21,7 @@ public class User {
 		super();
 	}
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotBlank(message = "User name is required")
 	private String name;
@@ -28,6 +29,11 @@ public class User {
 	private String username;
 	@NotBlank(message = "password is required")
 	private String password;
+	@Column(unique = true, updatable = false)
+	private String userCode;
+	private int role;
+	@Column(updatable = false)
+	private String teamCode;
 	
 	//creating many to one relationship between user and team
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
@@ -35,13 +41,26 @@ public class User {
 	@JsonIgnore
 	private Team team;
 	
+	
+	public String getUserCode() {
+		return userCode;
+	}
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+	public String getTeamCode() {
+		return teamCode;
+	}
+	public void setTeamCode(String teamCode) {
+		this.teamCode = teamCode;
+	}
 	public Team getTeam() {
 		return team;
 	}
 	public void setTeam(Team team) {
 		this.team = team;
 	}
-	private int role;
+	
 	
 	public Long getId() {
 		return id;

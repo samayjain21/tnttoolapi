@@ -18,4 +18,16 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 		return new ResponseEntity<Object> (exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 
+	@ExceptionHandler
+	public final ResponseEntity<Object> handleTeamNotFoundException(TeamNotFoundException ex, WebRequest request){
+		TeamNotFoundExceptionResponse exceptionResponse = new TeamNotFoundExceptionResponse(ex.getMessage());
+		return new ResponseEntity<Object> (exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler
+	public final ResponseEntity<Object> handleUserNotFoundException(UserNotFoundException ex, WebRequest request){
+		UserNotFoundExceptionResponse exceptionResponse = new UserNotFoundExceptionResponse(ex.getMessage());
+		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.BAD_REQUEST);
+	}
+
 }

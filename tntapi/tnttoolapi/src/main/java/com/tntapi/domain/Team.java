@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
 public class Team {
 	
@@ -24,14 +22,12 @@ public class Team {
 		super();
 	}
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
 	@NotBlank(message = "Team name is required")
 	private String name;
-	
 	private String projectName;
-	
+	private Integer userSequence =0;
 	@NotBlank(message = "Team Code is Required")
 	@Size(min = 3,max = 5,message = "It should be between 3 to 5 characters")
 	@Column(updatable = false,unique = true)
@@ -39,10 +35,15 @@ public class Team {
 
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL,mappedBy = "team")
-	@JsonIgnore
 	private List<User> users = new ArrayList<>();
-
 	
+	
+	public Integer getUserSequence() {
+		return userSequence;
+	}
+	public void setUserSequence(Integer userSequence) {
+		this.userSequence = userSequence;
+	}
 	public List<User> getUsers() {
 		return users;
 	}
