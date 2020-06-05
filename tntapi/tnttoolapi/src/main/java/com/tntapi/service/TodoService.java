@@ -17,20 +17,27 @@ public class TodoService {
 	@Autowired
 	private TodoRepository todoRepository;
 
-	public Todo createTodoTask(Todo todo, String user_id) {
-		try {
-			User user = userRepository.findUserByUserCode(user_id);
-			todo.setAssignedTo(user.getName());
-			Integer userTaskSequence = user.getTaskSequence();
-			userTaskSequence++;
-			user.setTaskSequence(userTaskSequence);
-			todo.setTaskIdentifier(user.getUserCode() + "-" + userTaskSequence);
-			todo.setUser(user);
-			return todoRepository.save(todo);
-		} catch (Exception ex) {
+	public Todo createTodoTask(Todo todo, String user_id, String team_id) {
+		//finding user
+		User user = userRepository.findUserByUserCode(user_id);
+		//if user not found
+		if (user == null) {
 			throw new UserNotFoundException("team member does not exists");
-
 		}
-
+		//assigning user to todo task
+		todo.setAssignedTo(user.getName());
+		//assigning taskIdentifier to todo task
+		Integer userTaskSequence = user.getTaskSequence();
+		userTaskSequence++;
+		user.setTaskSequence(userTaskSequence);
+		todo.setTaskIdentifier(user.getUserCode() + "-" + userTaskSequence);
+		//setting user to todo task
+		todo.setUser(user);
+		//checking team code and user team code is same 
+		if (!team_id.equals(user.getTeamCode())) {
+			throw new UserNotFoundException(
+					"user code '" + user_id + "' does not match with team code '" + team_id + "'");
+		}
+		return todoRepository.save(todo);
 	}
 }

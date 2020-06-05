@@ -27,14 +27,14 @@ public class TodoController {
 	@Autowired
 	private MapValidationErrorService mapValidationErrorService;
 	
-	@PostMapping("/{user_id}")
+	@PostMapping("/{team_id}/{user_id}")
 	public ResponseEntity<?> addTodoTask(@Valid @RequestBody Todo todo, BindingResult result,
-			@PathVariable String user_id){
+			@PathVariable String user_id, @PathVariable String team_id){
 		ResponseEntity<?> errorMap = mapValidationErrorService.mapValidateError(result);
 		if(errorMap!= null) {
 			return errorMap;
 		}
-		Todo newTodo = todoService.createTodoTask(todo, user_id);
+		Todo newTodo = todoService.createTodoTask(todo, user_id,team_id);
 		return new ResponseEntity<Todo> (newTodo, HttpStatus.CREATED);
 	}
 }
