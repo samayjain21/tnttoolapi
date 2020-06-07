@@ -82,7 +82,7 @@ public class TodoService {
 	public Todo updateBytaskSequence(Todo updatedTodo , String team_id, String user_id, String task_id) {
 		Todo todo = findTodoByTaskSequence(team_id, user_id, task_id);
 		todo =updatedTodo;
-		return todo;
+		return todoRepository.save(todo);
 				
 	}
 	
