@@ -40,6 +40,9 @@ public class TodoService {
 		todo.setTaskIdentifier(user.getUserCode() + "-" + userTaskSequence);
 		//setting user to todo task
 		todo.setUser(user);
+		//setting user code
+		todo.setUserCode(user.getUserCode());
+
 		todo.setTeamCode(user.getTeamCode());
 		//checking team code and user team code is same 
 		if (!team_id.equals(user.getTeamCode())) {

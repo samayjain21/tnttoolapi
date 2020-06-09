@@ -1,5 +1,6 @@
-import { USER_LOGIN, GET_USER } from "./../action/type";
+import { USER_LOGIN, GET_USER, GET_USERS } from "./../action/type";
 const initialState = {
+  users: [],
   user: {},
 };
 export default function (state = initialState, action) {
@@ -13,6 +14,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         user: action.payload,
+      };
+    case GET_USERS:
+      return {
+        ...state,
+        users: action.payload,
       };
     default:
       return state;

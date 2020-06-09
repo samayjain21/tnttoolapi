@@ -20,7 +20,7 @@ class TeamLeadDashboard extends Component {
     return (
       <div className="teamLeadDash ">
         <Header />
-        <AddAndListButton />
+        <AddAndListButton teamCode={teamCode} />
 
         <div className="todo-list ml-5 mt-5">
           {todos.map((todo) => (

@@ -4,9 +4,24 @@ import { Link } from "react-router-dom";
 class ViewTodoDetails extends Component {
   render() {
     const { todo } = this.props;
+    const todoName = todo.name;
+    console.log(
+      "name -" +
+        todoName +
+        "  Teamcode -" +
+        todo.teamCode +
+        "  usercode -" +
+        todo.userCode +
+        "  TaskCode -" +
+        todo.taskIdentifier
+    );
+
     return (
       <div>
-        <Link to="#" class="card-link btn btn-success btn-sm mx-1">
+        <Link
+          to={`/edit/todo/${todo.teamCode}/${todo.userCode}/${todo.taskIdentifier}`}
+          class="card-link btn btn-success btn-sm mx-1"
+        >
           <i class="fa fa-edit"></i>
         </Link>
         <Link to="#" class="card-link btn btn-danger btn-sm mx-1">
@@ -32,7 +47,7 @@ class ViewTodoDetails extends Component {
             <div class="modal-content">
               <div class="modal-header">
                 <h5 class="modal-title text-light" id="exampleModalLongTitle">
-                  Todo Name : <span>{todo.name}</span>
+                  Todo Name : <span>{todoName}</span>
                 </h5>
                 <button
                   type="button"
