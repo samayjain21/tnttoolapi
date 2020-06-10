@@ -55,6 +55,9 @@ class UpdateTodoForm extends Component {
     );
   }
   componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
     const {
       id,
       name,
@@ -132,25 +135,17 @@ class UpdateTodoForm extends Component {
                       value={this.state.detail}
                       onChange={this.onChange}
                     ></textarea>
-                    {errors.name && (
-                      <div className="invalid-feedback">{errors.name}</div>
+                    {errors.detail && (
+                      <div className="invalid-feedback">{errors.detail}</div>
                     )}
                   </div>
                   <div className="input-group form-group">
-                    <select
+                    <input
+                      type="name"
                       className="form-control"
-                      name="userCode"
-                      value={this.state.userCode}
-                      onChange={this.onChange}
-                      required
-                    >
-                      <option value={this.state.userCode}>
-                        {this.state.assignedTo}
-                      </option>
-                      {users.map((user) => (
-                        <option value={user.userCode}>{user.name}</option>
-                      ))}
-                    </select>
+                      name="assignedTo"
+                      value={this.state.assignedTo}
+                    />
                   </div>
                   <div className="input-group form-group">
                     <select
@@ -196,8 +191,8 @@ class UpdateTodoForm extends Component {
                       value={this.state.comment}
                       onChange={this.onChange}
                     ></textarea>
-                    {errors.name && (
-                      <div className="invalid-feedback">{errors.name}</div>
+                    {errors.comment && (
+                      <div className="invalid-feedback">{errors.comment}</div>
                     )}
                   </div>
 

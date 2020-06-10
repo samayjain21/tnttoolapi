@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import UserItem from "./UserItem";
 import Header from "../layout/Header";
 import BackToDashboardButton from "./BackToDashBoardButton";
+import { Link } from "react-router-dom";
 
 class ListTeamMember extends Component {
   componentDidMount() {
@@ -19,13 +20,20 @@ class ListTeamMember extends Component {
       <div>
         <Header />
         <BackToDashboardButton teamCode={teamCode} userCode={userCode} />
-        <p>
+        <Link
+          type="button"
+          className="add-member-btn rounded-pill btn btn-success px-4"
+          to={`/addTeamMember/${teamCode}/${userCode}`}
+        >
+          <i className="fa fa-plus" aria-hidden="true"></i> Add Member
+        </Link>
+        <div>
           {users.map((user) => (
             <span>
-              <UserItem key={user.id} user={user} />
+              <UserItem key={user.id} user={user} userCode={userCode} />
             </span>
           ))}
-        </p>
+        </div>
       </div>
     );
   }

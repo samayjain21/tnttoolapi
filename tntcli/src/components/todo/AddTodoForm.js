@@ -53,7 +53,7 @@ class AddTodoForm extends Component {
     };
     this.props.createTodo(
       teamCode,
-      this.state.assignedTo,
+      this.state.userCode,
       userCode,
       newTodo,
       this.props.history
@@ -88,6 +88,7 @@ class AddTodoForm extends Component {
                       name="name"
                       value={this.state.name}
                       onChange={this.onChange}
+                      required
                     />
                     {errors.name && (
                       <div className="invalid-feedback">{errors.name}</div>
@@ -103,6 +104,7 @@ class AddTodoForm extends Component {
                       name="detail"
                       value={this.state.detail}
                       onChange={this.onChange}
+                      required
                     ></textarea>
                     {errors.detail && (
                       <div className="invalid-feedback">{errors.detail}</div>
@@ -111,8 +113,8 @@ class AddTodoForm extends Component {
                   <div className="input-group form-group">
                     <select
                       className="form-control"
-                      name="assignedTo"
-                      value={this.state.assignedTo}
+                      name="userCode"
+                      value={this.state.userCode}
                       onChange={this.onChange}
                       required
                     >
@@ -167,6 +169,7 @@ class AddTodoForm extends Component {
                       name="comment"
                       value={this.state.comment}
                       onChange={this.onChange}
+                      required
                     ></textarea>
                     {errors.comment && (
                       <div className="invalid-feedback">{errors.comment}</div>

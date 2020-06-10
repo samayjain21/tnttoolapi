@@ -48,6 +48,6 @@ export const deleteTodo = (userCode, taskId) => async (dispatch) => {
   await axios.delete(`http://localhost:8081/api/todo/${userCode}/${taskId}`);
   dispatch({
     type: DELETE_TODO,
-    payload: userCode,
+    payload: taskId,
   });
 };

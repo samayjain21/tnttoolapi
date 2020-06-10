@@ -12,6 +12,8 @@ import RegistrationForm from "./components/layout/login/forms/RegistrationForm";
 import ListTeamMember from "./components/user/ListTeamMember";
 import AddTodoForm from "./components/todo/AddTodoForm";
 import UpdateTodoForm from "./components/todo/UpdateTodoForm";
+import AddTeamMember from "./components/user/AddTeamMember";
+import UpdateTeamMember from "./components/user/UpdateTeamMember";
 
 function App() {
   return (
@@ -44,6 +46,16 @@ function App() {
           exact
           path="/updateTodo/:teamCode/:userCode/:taskIdentifier"
           component={UpdateTodoForm}
+        />
+        <Route
+          exact
+          path="/addTeamMember/:teamCode/:userCode"
+          component={AddTeamMember}
+        />
+        <Route
+          exact
+          path="/updateTeamMember/:teamCode/:userCode/:userId"
+          component={UpdateTeamMember}
         />
       </Router>
     </Provider>
