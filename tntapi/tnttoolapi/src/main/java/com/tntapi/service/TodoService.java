@@ -61,6 +61,23 @@ public class TodoService {
 		}
 		return todoRepository.findTodoByTeamCode(teamCode);
 	}
+
+	public List<Todo> findAllTodoAssignToUser(String teamCode, String userCode){
+		Team team = teamRepository.findByTeamCode(teamCode);
+		// team not found
+		if (team == null) {
+			throw new TeamNotFoundException("team with team code '" + teamCode + "' does not exist");
+		}
+		User user = userRepository.findUserByUserCode(userCode);
+		if(user == null) {
+			throw new UserNotFoundException("user not found");
+		}
+		if(!teamCode.equals(user.getTeamCode())) {
+			throw new TodoNotFoundException("task team Code and user Team code does not match");
+		}
+		return todoRepository.findTodoByUserCode(userCode);
+	}
+	
 	
 	public Todo findTodoByTaskSequence(String team_id, String user_id, String task_id) {
 		Team team =teamRepository.findByTeamCode(team_id);
@@ -88,6 +105,7 @@ public class TodoService {
 		return todoRepository.save(todo);
 				
 	}
+	
 	
 	public void deleteTodo(String user_id, String task_id) {
 		User user = userRepository.findUserByUserCode(user_id);

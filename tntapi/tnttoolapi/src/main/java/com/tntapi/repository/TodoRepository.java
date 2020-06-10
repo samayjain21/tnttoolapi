@@ -15,4 +15,5 @@ public interface TodoRepository extends CrudRepository<Todo, Long>{
 	
 	List<Todo> findTodoByTeamCode(String team_id);
 
+	List<Todo> findTodoByUserCode(String userCode);
 }

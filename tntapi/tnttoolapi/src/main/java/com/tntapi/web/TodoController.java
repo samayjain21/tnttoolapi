@@ -46,6 +46,11 @@ public class TodoController {
 		return todoService.findAllTodoTask(team_id);
 	}
 	
+	@GetMapping("/{team_id}/{user_id}")
+	public Iterable<Todo> getUserTodo(@PathVariable String team_id, @PathVariable String user_id){
+		return todoService.findAllTodoAssignToUser(team_id, user_id);
+	}
+	
 	@GetMapping("/{team_id}/{user_id}/{task_id}")
 	public ResponseEntity<?> getTodo(@PathVariable String team_id,@PathVariable String user_id,@PathVariable String task_id){
 		Todo todo = todoService.findTodoByTaskSequence(team_id, user_id, task_id);
