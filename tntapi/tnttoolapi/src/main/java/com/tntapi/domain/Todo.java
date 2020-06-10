@@ -14,6 +14,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -27,10 +28,11 @@ public class Todo {
 	@Column(unique = true, updatable = false, nullable = false)
 	private String taskIdentifier;
 	@NotBlank(message = "Detail of the Todo Task is required")
-	@Size(min = 10,max = 70,message = "It should be between 10 to 70 characters")
+	@Size(min = 50,max = 200, message = "It should be between 50 to 200 characters")
 	private String detail;
 	@Column(nullable = false)
 	private String assignedTo;
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date dueDateAndTime;
 	private int priority;
 	private String status;

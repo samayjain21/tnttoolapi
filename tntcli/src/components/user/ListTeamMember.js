@@ -4,19 +4,21 @@ import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import UserItem from "./UserItem";
 import Header from "../layout/Header";
+import BackToDashboardButton from "./BackToDashBoardButton";
 
 class ListTeamMember extends Component {
   componentDidMount() {
-    const { teamCode } = this.props.match.params;
+    const { teamCode, userCode } = this.props.match.params;
     this.props.getUsers(teamCode, this.props.history);
   }
 
   render() {
     const { users } = this.props.users;
-    const { teamCode } = this.props.match.params;
+    const { teamCode, userCode } = this.props.match.params;
     return (
       <div>
         <Header />
+        <BackToDashboardButton teamCode={teamCode} userCode={userCode} />
         <p>
           {users.map((user) => (
             <span>

@@ -16,15 +16,15 @@ class TeamLeadDashboard extends Component {
   render() {
     const { todos } = this.props.todos;
     const { teamCode, userCode } = this.props.match.params;
-    // this.props.getTodos(teamCode, this.props.history);
+
     return (
       <div className="teamLeadDash ">
         <Header />
-        <AddAndListButton teamCode={teamCode} />
+        <AddAndListButton teamCode={teamCode} userCode={userCode} />
 
         <div className="todo-list ml-5 mt-5">
           {todos.map((todo) => (
-            <TodoList key={todo.id} todo={todo} />
+            <TodoList key={todo.id} todo={todo} userCode={userCode} />
           ))}
         </div>
       </div>
