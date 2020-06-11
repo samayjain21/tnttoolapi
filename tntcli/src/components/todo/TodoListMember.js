@@ -1,8 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { deleteTodo } from "../../action/todoAction";
-import { connect } from "react-redux";
-import { PropTypes } from "prop-types";
 
 class TodoListMember extends Component {
   render() {

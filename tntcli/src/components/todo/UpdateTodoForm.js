@@ -212,7 +212,6 @@ class UpdateTodoForm extends Component {
   }
 }
 UpdateTodoForm.propTypes = {
-  // user: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
   createTodo: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,

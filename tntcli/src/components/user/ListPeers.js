@@ -2,15 +2,12 @@ import React, { Component } from "react";
 import { getUsers } from "../../action/userAction";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import UserItem from "./UserItem";
 import Header from "../layout/Header";
-import BackToDashboardButton from "./BackToDashBoardButton";
-import { Link } from "react-router-dom";
 import BackToTeamMemberDashBoard from "./BackToTeamMemberDashBoard";
 
 class ListPeers extends Component {
   componentDidMount() {
-    const { teamCode, userCode } = this.props.match.params;
+    const { teamCode } = this.props.match.params;
     this.props.getUsers(teamCode, this.props.history);
   }
 
@@ -47,4 +44,3 @@ const mapStateToProps = (state) => ({
   users: state.users,
 });
 export default connect(mapStateToProps, { getUsers })(ListPeers);
-// export default ListTeamMember;

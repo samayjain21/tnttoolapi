@@ -5,11 +5,10 @@ import TodoList from "./todo/TodoList";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { getTodos } from "./../action/todoAction";
-import { Link } from "react-router-dom";
 
 class TeamLeadDashboard extends Component {
   componentDidMount() {
-    const { teamCode, userCode } = this.props.match.params;
+    const { teamCode } = this.props.match.params;
     this.props.getTodos(teamCode, this.props.history);
   }
 
@@ -40,4 +39,3 @@ const mapStateToProps = (state) => ({
   todos: state.todos,
 });
 export default connect(mapStateToProps, { getTodos })(TeamLeadDashboard);
-// export default TeamLeadDashboard;

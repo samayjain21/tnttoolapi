@@ -13,7 +13,6 @@ export const login = (user, history) => async (dispatch) => {
     const res = await axios.post("http://localhost:8081/api/user/login", user);
     console.log("response in react", res);
     if (res.data.role === 2) {
-      // `/projectBoard/${backlog_id}`
       history.push(
         `/teamLeadDashboard/${res.data.teamCode}/${res.data.userCode}`
       );
@@ -49,10 +48,7 @@ export const createUser = (teamCode, userCode, user, history) => async (
   dispatch
 ) => {
   try {
-    const res = await axios.post(
-      `http://localhost:8081/api/user/${teamCode}/`,
-      user
-    );
+    await axios.post(`http://localhost:8081/api/user/${teamCode}/`, user);
     history.push(`/teamMember/${teamCode}/${userCode}`);
   } catch (error) {
     dispatch({

@@ -6,7 +6,6 @@ import { PropTypes } from "prop-types";
 
 class TodoList extends Component {
   onDeleteClick = (userId, taskId) => {
-    console.log("-------> delete method called.");
     this.props.deleteTodo(userId, taskId);
   };
 

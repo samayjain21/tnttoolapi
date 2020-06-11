@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 export default class FooterLandingPage extends Component {
   render() {
@@ -19,14 +20,14 @@ export default class FooterLandingPage extends Component {
               </i>
             </div>
             <div className="col-md-4">
-              <a
-                href="#"
+              <Link
                 data-toggle="modal"
                 data-target="#developerInfo"
                 className="nav-link text-light mt-n2 ml-5"
+                to="#"
               >
                 Developers Description
-              </a>
+              </Link>
             </div>
             <div className="col-md-4 ">
               <p className="text-light ml-5">
@@ -35,21 +36,21 @@ export default class FooterLandingPage extends Component {
               </p>
 
               <div className="social-bar">
-                <a href="#" className="social-icon">
-                  <img src="img/facebook.svg" className="social-icons" />
-                </a>
+                <Link className="social-icon" to="#">
+                  <img src="img/facebook.svg" className="social-icons" alt="" />
+                </Link>
 
-                <a href="#" className="social-icon">
-                  <img src="img/skype.svg" className="social-icons" />
-                </a>
+                <Link className="social-icon" to="#">
+                  <img src="img/skype.svg" className="social-icons" alt="" />
+                </Link>
 
-                <a href="#" className="social-icon">
-                  <img src="img/linkedin.svg" className="social-icons" />
-                </a>
+                <Link className="social-icon" to="#">
+                  <img src="img/linkedin.svg" className="social-icons" alt="" />
+                </Link>
 
-                <a href="#" className="social-icon">
-                  <img src="img/gmail.svg" className="social-icons" />
-                </a>
+                <Link className="social-icon" to="#">
+                  <img src="img/gmail.svg" className="social-icons" alt="" />
+                </Link>
               </div>
             </div>
           </div>
@@ -70,11 +71,11 @@ export default class FooterLandingPage extends Component {
                 <div className="container">
                   <img
                     className="img-responsive  rounded mx-auto d-block"
-                    src="img/modal1.jpg"
-                    alt="Developer image"
+                    src="img/modal.jpg"
+                    alt="Developer "
                   />
                   <h5 className="text-light  text-center text-muted">
-                    Prateek Dubey
+                    Samay Jain
                   </h5>
                 </div>
               </div>

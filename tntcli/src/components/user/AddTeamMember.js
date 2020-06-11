@@ -4,7 +4,7 @@ import { PropTypes } from "prop-types";
 import classnames from "classnames";
 import Header from "./../layout/Header";
 import BackToMemberListboardButton from "./BackToMemberListboardButton";
-import { getUsers, createUser } from "./../../action/userAction";
+import { createUser } from "./../../action/userAction";
 
 class AddTeamMember extends Component {
   constructor(props) {
@@ -23,10 +23,6 @@ class AddTeamMember extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-  }
-  componentDidMount() {
-    const { teamCode } = this.props.match.params;
-    // this.props.getUsers(teamCode, this.props.history);
   }
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
@@ -78,7 +74,7 @@ class AddTeamMember extends Component {
                       type="text"
                       className={classnames("form-control", {
                         "is-invalid": errors.username,
-                        "is-invalid": errors.userCode,
+                        "is-invalid ": errors.userCode,
                       })}
                       placeholder="Username"
                       name="username"
@@ -104,13 +100,10 @@ class AddTeamMember extends Component {
   }
 }
 AddTeamMember.propTypes = {
-  // user: PropTypes.object.isRequired,
-  // getUsers: PropTypes.func.isRequired,
   createUser: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   errors: state.errors,
-  // users: state.users,
 });
 export default connect(mapStateToProps, { createUser })(AddTeamMember);

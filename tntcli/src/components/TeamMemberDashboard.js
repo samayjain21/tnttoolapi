@@ -44,4 +44,3 @@ const mapStateToProps = (state) => ({
   todos: state.todos,
 });
 export default connect(mapStateToProps, { getUserTodos })(TeamMemberDashboard);
-// export default TeamMemberDashboard;

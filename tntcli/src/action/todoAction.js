@@ -16,7 +16,7 @@ export const createTodo = (
   history
 ) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    await axios.post(
       `http://localhost:8081/api/todo/${teamCode}/${assignUserId}/`,
       todo
     );

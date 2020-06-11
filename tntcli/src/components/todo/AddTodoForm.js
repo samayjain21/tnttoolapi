@@ -6,6 +6,7 @@ import { createTodo } from "./../../action/todoAction";
 import BackToDashboardButton from "./../user/BackToDashBoardButton";
 import Header from "../layout/Header";
 import classnames from "classnames";
+import { getUser } from "./../../action/userAction";
 
 class AddTodoForm extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class AddTodoForm extends Component {
       status: "",
       comment: "",
       userCode: "",
+      role: "",
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -26,13 +28,18 @@ class AddTodoForm extends Component {
   }
 
   componentDidMount() {
-    const { teamCode } = this.props.match.params;
+    const { teamCode, userCode } = this.props.match.params;
     this.props.getUsers(teamCode, this.props.history);
+    this.props.getUsers(teamCode, userCode, this.props.history);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+    const { role } = nextProps.user;
+    this.setState({
+      role,
+    });
   }
 
   onChange(event) {
@@ -56,6 +63,7 @@ class AddTodoForm extends Component {
       this.state.userCode,
       userCode,
       newTodo,
+      this.state.role,
       this.props.history
     );
   }
@@ -192,9 +200,13 @@ AddTodoForm.propTypes = {
   getUsers: PropTypes.func.isRequired,
   createTodo: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
+  getUser: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   users: state.users,
   errors: state.errors,
+  user: state.users.user,
 });
-export default connect(mapStateToProps, { getUsers, createTodo })(AddTodoForm);
+export default connect(mapStateToProps, { getUser, getUsers, createTodo })(
+  AddTodoForm
+);

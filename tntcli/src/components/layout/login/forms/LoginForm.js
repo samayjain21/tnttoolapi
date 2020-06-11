@@ -70,7 +70,6 @@ class LoginForm extends Component {
                     <input
                       type="text"
                       name="username"
-                      className="form-control"
                       className={classnames("form-control ", {
                         "is-invalid": errors.userCode,
                       })}

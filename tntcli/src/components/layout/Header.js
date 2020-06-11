@@ -20,13 +20,12 @@ class Header extends Component {
     this.setState({ name });
   }
   render() {
-    const { teamCode, userCode } = this.props;
     return (
       <div id="main-header">
         <nav className=" navbar navbar-expand-sm  mb-4 ml-5 mr-5">
-          <a className="navbar-brand text-light">
+          <Link className="navbar-brand text-light">
             Team and TODO Management Tool
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -38,7 +37,7 @@ class Header extends Component {
 
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item text-light mt-2 mr-5">
+              <li className="nav-item text-light mt-2 mr-5 font-weight-light">
                 Welcome {this.state.name}
               </li>
               <li className="nav-item">

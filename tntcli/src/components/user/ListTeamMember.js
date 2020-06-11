@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 class ListTeamMember extends Component {
   componentDidMount() {
-    const { teamCode, userCode } = this.props.match.params;
+    const { teamCode } = this.props.match.params;
     this.props.getUsers(teamCode, this.props.history);
   }
 
@@ -48,4 +48,3 @@ const mapStateToProps = (state) => ({
   users: state.users,
 });
 export default connect(mapStateToProps, { getUsers })(ListTeamMember);
-// export default ListTeamMember;
