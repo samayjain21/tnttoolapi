@@ -1,4 +1,9 @@
-import { GET_TODOTASKS, GET_TODO, DELETE_TODO } from "./../action/type";
+import {
+  GET_TODOTASKS,
+  GET_TODO,
+  DELETE_TODO,
+  GET_USERTODOTASKS,
+} from "./../action/type";
 
 const initialState = {
   todos: [],
@@ -7,6 +12,11 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_TODOTASKS:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+    case GET_USERTODOTASKS:
       return {
         ...state,
         todos: action.payload,

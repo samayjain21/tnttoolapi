@@ -14,6 +14,8 @@ import AddTodoForm from "./components/todo/AddTodoForm";
 import UpdateTodoForm from "./components/todo/UpdateTodoForm";
 import AddTeamMember from "./components/user/AddTeamMember";
 import UpdateTeamMember from "./components/user/UpdateTeamMember";
+import UpdateUserTodoForm from "./components/todo/UpdateUserTodoForm";
+import ListPeers from "./components/user/ListPeers";
 
 function App() {
   return (
@@ -49,6 +51,11 @@ function App() {
         />
         <Route
           exact
+          path="/updateUserTodo/:teamCode/:userCode/:taskIdentifier"
+          component={UpdateUserTodoForm}
+        />
+        <Route
+          exact
           path="/addTeamMember/:teamCode/:userCode"
           component={AddTeamMember}
         />
@@ -56,6 +63,11 @@ function App() {
           exact
           path="/updateTeamMember/:teamCode/:userCode/:userId"
           component={UpdateTeamMember}
+        />
+        <Route
+          exact
+          path="/listPeers/:teamCode/:userCode"
+          component={ListPeers}
         />
       </Router>
     </Provider>

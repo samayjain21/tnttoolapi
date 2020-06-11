@@ -47,7 +47,7 @@ class AddTeamMember extends Component {
     const { teamCode, userCode } = this.props.match.params;
     return (
       <div className="add-user">
-        <Header />
+        <Header teamCode={teamCode} userCode={userCode} />
         <BackToMemberListboardButton teamCode={teamCode} userCode={userCode} />
         <div className="add-user-form container">
           <div className="d-flex justify-content-center h-100">

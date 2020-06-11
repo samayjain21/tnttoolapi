@@ -67,7 +67,8 @@ class AddTodoForm extends Component {
 
     return (
       <div className="add-todo">
-        <Header />
+        <Header teamCode={teamCode} userCode={userCode} />
+
         <BackToDashboardButton teamCode={teamCode} userCode={userCode} />
         <div className="add-todo-form container">
           <div className="d-flex justify-content-center h-100">

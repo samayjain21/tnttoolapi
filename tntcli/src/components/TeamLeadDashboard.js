@@ -19,7 +19,7 @@ class TeamLeadDashboard extends Component {
 
     return (
       <div className="teamLeadDash ">
-        <Header />
+        <Header teamCode={teamCode} userCode={userCode} />
         <AddAndListButton teamCode={teamCode} userCode={userCode} />
 
         <div className="todo-list ml-5 mt-5">

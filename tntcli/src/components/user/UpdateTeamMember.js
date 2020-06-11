@@ -37,7 +37,6 @@ class UpdateTeamMember extends Component {
     });
   }
 
-  //////////////////////////////////////////////////////////////
   componentDidMount() {
     const { teamCode, userCode, userId } = this.props.match.params;
     this.props.getUser(teamCode, userId, this.props.history);
@@ -62,7 +61,7 @@ class UpdateTeamMember extends Component {
     const { teamCode, userCode } = this.props.match.params;
     return (
       <div className="add-user">
-        <Header />
+        <Header teamCode={teamCode} userCode={userCode} />
         <BackToMemberListboardButton teamCode={teamCode} userCode={userCode} />
         <div className="add-user-form container">
           <div className="d-flex justify-content-center h-100">
