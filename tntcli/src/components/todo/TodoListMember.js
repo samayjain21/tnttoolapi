@@ -15,11 +15,33 @@ class TodoListMember extends Component {
           <p>
             Status : <span>{todo.status}</span>
           </p>
-          <p className="card-title  ">
-            Assigned To : <span>{todo.assignedTo}</span>
-          </p>
+          {(() => {
+            switch (todo.priority) {
+              case 1:
+                return (
+                  <p>
+                    Priority : <span>High</span>
+                  </p>
+                );
+              case 2:
+                return (
+                  <p>
+                    Priority : <span>Medium</span>
+                  </p>
+                );
+              case 3:
+                return (
+                  <p>
+                    Priority : <span>Low</span>
+                  </p>
+                );
+
+              default:
+                return "";
+            }
+          })()}
           <p className="card-title ">
-            Due Date and Time : <span>{todo.dueDateAndTime}</span>
+            Due Date : <span>{todo.dueDateAndTime}</span>
           </p>
           <p className="card-text text-light font-italic">{todo.comment}</p>
         </div>

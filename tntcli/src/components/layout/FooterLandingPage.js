@@ -6,10 +6,10 @@ export default class FooterLandingPage extends Component {
     return (
       <div>
         <footer id="main-footer" className="p-3">
-          <div className="row mx-5">
+          <div className="row">
             <div className="col-md-4">
               <p className="text-light">
-                <i className="fa fa-cog fa-spin fa-1x"></i> About Us
+                <i className="fas fa-user-circle fa-spin fa-1x"></i> About Us
               </p>
               <i className="text-light">
                 We're a learning Developer, who loves building web solutions. We
@@ -21,35 +21,51 @@ export default class FooterLandingPage extends Component {
             </div>
             <div className="col-md-4">
               <Link
+                to="#"
                 data-toggle="modal"
                 data-target="#developerInfo"
                 className="nav-link text-light mt-n2 ml-5"
-                to="#"
               >
                 Developers Description
               </Link>
             </div>
-            <div className="col-md-4 ">
+            <div className="col-md-4">
               <p className="text-light ml-5">
                 <i className="fa fa-address-card" aria-hidden="true"></i>{" "}
                 Contact Us
               </p>
 
               <div className="social-bar">
-                <Link className="social-icon" to="#">
-                  <img src="img/facebook.svg" className="social-icons" alt="" />
+                <Link to="#" className="social-icon">
+                  <img
+                    src="img/facebook.svg"
+                    className="social-icons"
+                    alt="facebook"
+                  />
                 </Link>
 
-                <Link className="social-icon" to="#">
-                  <img src="img/skype.svg" className="social-icons" alt="" />
+                <Link to="#" className="social-icon">
+                  <img
+                    src="img/skype.svg"
+                    className="social-icons"
+                    alt="skype"
+                  />
                 </Link>
 
-                <Link className="social-icon" to="#">
-                  <img src="img/linkedin.svg" className="social-icons" alt="" />
+                <Link to="#" className="social-icon">
+                  <img
+                    src="img/linkedin.svg"
+                    className="social-icons"
+                    alt="linkedin"
+                  />
                 </Link>
 
-                <Link className="social-icon" to="#">
-                  <img src="img/gmail.svg" className="social-icons" alt="" />
+                <Link to="#" className="social-icon">
+                  <img
+                    src="img/gmail.svg"
+                    className="social-icons"
+                    alt="gmail"
+                  />
                 </Link>
               </div>
             </div>
@@ -71,8 +87,17 @@ export default class FooterLandingPage extends Component {
                 <div className="container">
                   <img
                     className="img-responsive  rounded mx-auto d-block"
-                    src="img/modal.jpg"
-                    alt="Developer "
+                    src="img/modal1.jpg"
+                    alt="Developer 1"
+                  />
+                  <h5 className="text-light  text-center text-muted">
+                    Prateek Dubey
+                  </h5>
+
+                  <img
+                    className="img-responsive border border-dark rounded mx-auto d-block"
+                    src="img/modal2.jpg"
+                    alt="Developer 2"
                   />
                   <h5 className="text-light  text-center text-muted">
                     Samay Jain

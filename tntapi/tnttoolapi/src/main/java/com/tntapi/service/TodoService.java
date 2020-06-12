@@ -38,6 +38,14 @@ public class TodoService {
 		userTaskSequence++;
 		user.setTaskSequence(userTaskSequence);
 		todo.setTaskIdentifier(user.getUserCode() + "-" + userTaskSequence);
+		//if status is not given it will set TODO
+		if (todo.getStatus()== null || todo.getStatus()== "") {
+            todo.setStatus("TODO");  
+        }
+		//if priority is not set it will set to low i.e. 1
+        if (todo.getPriority()==0) {
+            todo.setPriority(3);
+        }
 		//setting user to todo task
 		todo.setUser(user);
 		//setting user code

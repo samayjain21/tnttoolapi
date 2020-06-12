@@ -30,7 +30,7 @@ class AddTodoForm extends Component {
   componentDidMount() {
     const { teamCode, userCode } = this.props.match.params;
     this.props.getUsers(teamCode, this.props.history);
-    this.props.getUsers(teamCode, userCode, this.props.history);
+    this.props.getUser(teamCode, userCode, this.props.history);
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
