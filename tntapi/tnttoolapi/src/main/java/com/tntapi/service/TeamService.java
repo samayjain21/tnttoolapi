@@ -1,5 +1,7 @@
 package com.tntapi.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,4 +23,8 @@ public class TeamService {
 		throw new TeamIdException("Team Id already Exists");
 		}
 	}
+	
+	public Iterable<Team> listAllTeams(){
+		return teamRepository.findAll();
+		}
 }

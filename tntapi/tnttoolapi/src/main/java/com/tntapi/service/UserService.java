@@ -29,6 +29,11 @@ public class UserService {
 			user.setTeam(team);
 			// setting team code to user
 			user.setTeamCode(teamCode);
+			//setting user as team lead if role is specified as that
+			if(user.getRole() ==2) {
+				team.setTeamLead(user.getName());
+			}
+			
 			// generating userCode with teamCode and userSequence
 			Integer userSequence = team.getUserSequence();
 			userSequence++;
@@ -94,6 +99,10 @@ public class UserService {
 
 		// Getting the list of users in the team
 		List<User> users = team.getUsers();
+		
+		if(user.getRole()==2) {
+			team.setTeamLead(null);
+		}
 
 		// removing the user from the list of users
 		users.remove(user);

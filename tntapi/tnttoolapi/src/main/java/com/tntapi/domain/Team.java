@@ -30,6 +30,7 @@ public class Team {
 	private String name;
 	private String projectName;
 	private Integer userSequence =0;
+	private String teamLead;
 	@NotBlank(message = "Team Code is Required")
 	@Size(min = 3,max = 5,message = "It should be between 3 to 5 characters")
 	@Column(updatable = false,unique = true)
@@ -76,6 +77,12 @@ public class Team {
 	}
 	public void setTeamCode(String teamCode) {
 		this.teamCode = teamCode;
+	}
+	public String getTeamLead() {
+		return teamLead;
+	}
+	public void setTeamLead(String teamLead) {
+		this.teamLead = teamLead;
 	}
 	
 }

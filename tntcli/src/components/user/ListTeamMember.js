@@ -12,34 +12,33 @@ class ListTeamMember extends Component {
     const { teamCode } = this.props.match.params;
     this.props.getUsers(teamCode, this.props.history);
   }
-
   render() {
     const { users } = this.props.users;
     const { teamCode, userCode } = this.props.match.params;
     return (
       <div>
         <Header teamCode={teamCode} userCode={userCode} />
-
         <BackToDashboardButton teamCode={teamCode} userCode={userCode} />
-        <Link
-          type="button"
-          className="add-member-btn rounded-pill btn btn-success px-4"
-          to={`/addTeamMember/${teamCode}/${userCode}`}
-        >
-          <i className="fa fa-plus" aria-hidden="true"></i> Add Member
-        </Link>
-        <div>
+        <div className="d-flex justify-content-end mt-n2">
+          <Link
+            type="button"
+            className="add-member-btn rounded  btn btn-success px-3 mt-n4 mr-5"
+            to={`/addTeamMember/${teamCode}/${userCode}`}
+          >
+            <i className="fa fa-plus" aria-hidden="true"></i> Add Member
+          </Link>
+        </div>
+        <p>
           {users.map((user) => (
             <span>
               <UserItem key={user.id} user={user} userCode={userCode} />
             </span>
           ))}
-        </div>
+        </p>
       </div>
     );
   }
 }
-
 ListTeamMember.propTypes = {
   user: PropTypes.object.isRequired,
   getUsers: PropTypes.func.isRequired,

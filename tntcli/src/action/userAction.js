@@ -49,7 +49,12 @@ export const createUser = (teamCode, userCode, user, history) => async (
 ) => {
   try {
     await axios.post(`http://localhost:8081/api/user/${teamCode}/`, user);
-    history.push(`/teamMember/${teamCode}/${userCode}`);
+    console.log("user role team lead -" + user.role);
+    if (user.role == 2) {
+      // history.push(`/adminDashboard/S01-1/${userCode}`);
+    } else {
+      history.push(`/teamMember/${teamCode}/${userCode}`);
+    }
   } catch (error) {
     dispatch({
       type: GET_ERRORS,

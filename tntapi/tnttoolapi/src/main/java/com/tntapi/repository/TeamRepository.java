@@ -1,5 +1,7 @@
 package com.tntapi.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +12,7 @@ public interface TeamRepository extends CrudRepository<Team, Long> {
 
 	// used to find the team from team Code
 	public Team findByTeamCode(String team_id);
+	
+	
 
 }

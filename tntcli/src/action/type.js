@@ -7,3 +7,6 @@ export const DELETE_TODO = "DELETE_TODO";
 export const GET_USER = "GET_USER";
 export const GET_USERS = "GET_USERS";
 export const DELETE_USER = "DELETE_USER";
+export const GET_TEAMS = "GET_TEAMS";
+export const GET_TEAM = "GET_TEAM";
+export const DELETE_TEAM = "DELETE_TEAM";
