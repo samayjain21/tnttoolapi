@@ -29,16 +29,18 @@ public class UserService {
 			user.setTeam(team);
 			// setting team code to user
 			user.setTeamCode(teamCode);
-			//setting user as team lead if role is specified as that
-			if(user.getRole() ==2) {
-				team.setTeamLead(user.getName());
-			}
 			
 			// generating userCode with teamCode and userSequence
 			Integer userSequence = team.getUserSequence();
 			userSequence++;
 			team.setUserSequence(userSequence);
 			user.setUserCode(user.getTeamCode() + "-" + userSequence);
+			//setting user as team lead if role is specified as that
+			if(user.getRole() ==2) {
+				team.setTeamLead(user.getName());
+				team.setTeamLeadCode(user.getUserCode());
+			}
+			
 			return userRepository.save(user);
 		} 
 		catch(NullPointerException ex) {
@@ -102,6 +104,7 @@ public class UserService {
 		
 		if(user.getRole()==2) {
 			team.setTeamLead(null);
+			team.setTeamLeadCode(null);
 		}
 
 		// removing the user from the list of users

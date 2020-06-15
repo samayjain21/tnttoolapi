@@ -149,7 +149,18 @@ class AddTodoForm extends Component {
                     </select>
                   </div>
                   <div className="input-group form-group">
-                    <input
+                    <select
+                      className="form-control"
+                      name="status"
+                      value={this.state.status}
+                      onChange={this.onChange}
+                    >
+                      <option>Select Status</option>
+                      <option value="TODO">TODO</option>
+                      <option value="In-Progress">In-Progress</option>
+                      <option value="Completed">Completed</option>
+                    </select>
+                    {/*                   <input
                       type="text"
                       className="form-control "
                       placeholder="Todo status"
@@ -157,6 +168,7 @@ class AddTodoForm extends Component {
                       value={this.state.status}
                       onChange={this.onChange}
                     />
+*/}
                   </div>
 
                   <div className="input-group form-group">

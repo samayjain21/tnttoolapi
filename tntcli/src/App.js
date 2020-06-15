@@ -16,6 +16,8 @@ import AddTeamMember from "./components/user/AddTeamMember";
 import UpdateTeamMember from "./components/user/UpdateTeamMember";
 import UpdateUserTodoForm from "./components/todo/UpdateUserTodoForm";
 import ListPeers from "./components/user/ListPeers";
+import CompletedTodo from "./components/todo/CompletedTodo";
+import UpdateUserCredentials from "./components/user/UpdateUserCredentials";
 
 function App() {
   return (
@@ -48,6 +50,16 @@ function App() {
           exact
           path="/updateTodo/:teamCode/:userCode/:taskIdentifier"
           component={UpdateTodoForm}
+        />
+        <Route
+          exact
+          path="/completedTodo/:teamCode/:userCode"
+          component={CompletedTodo}
+        />
+        <Route
+          exact
+          path="/updateUserCredentials/:teamCode/:userCode"
+          component={UpdateUserCredentials}
         />
         <Route
           exact

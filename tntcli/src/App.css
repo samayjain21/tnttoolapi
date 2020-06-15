@@ -2,7 +2,10 @@
   background-color: rgba(0, 0, 0, 0.911);
   padding-top: 5px;
 }
-/**List Team Member*/
+#main-header .dropdown-menu {
+  margin-left: 86%;
+}
+/*List Team Member*/
 .list-team-member .list-member {
   background-color: rgba(0, 0, 0, 0.911);
   font-size: 14px;
