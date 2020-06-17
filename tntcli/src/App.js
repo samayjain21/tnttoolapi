@@ -18,7 +18,12 @@ import UpdateUserTodoForm from "./components/todo/UpdateUserTodoForm";
 import ListPeers from "./components/user/ListPeers";
 import CompletedTodo from "./components/todo/CompletedTodo";
 import UpdateUserCredentials from "./components/user/UpdateUserCredentials";
-
+import AdminDashboard from "./components/admin/AdminDashboard";
+import AddTeamForm from "./components/admin/AddTeamForm";
+import UpdateTeamForm from "./components/admin/UpdateTeamForm";
+import AllTeamMember from "./components/admin/AllTeamMember";
+import UpdateTeamMemberAdmin from "./components/admin/UpdateTeamMemberAdmin";
+import AddTeamMemberAdmin from "./components/admin/AddTeamMemberAdmin";
 function App() {
   return (
     <Provider store={store}>
@@ -32,6 +37,26 @@ function App() {
         />
         <Route
           exact
+          path="/adminDashboard/:teamCode/:userCode"
+          component={AdminDashboard}
+        />
+        <Route
+          exact
+          path="/addTeamForm/:teamCode/:userCode"
+          component={AddTeamForm}
+        />
+        <Route
+          exact
+          path="/updateTeamForm/:teamId/:userCode/:teamCode"
+          component={UpdateTeamForm}
+        />
+        <Route
+          exact
+          path="/listTeamMember/:teamId/:userCode/:teamCode"
+          component={AllTeamMember}
+        />
+        <Route
+          exact
           path="/teamMemberDashboard/:teamCode/:userCode"
           component={TeamMemberDashboard}
         />
@@ -40,6 +65,16 @@ function App() {
           exact
           path="/teamMember/:teamCode/:userCode"
           component={ListTeamMember}
+        />
+        <Route
+          exact
+          path="/updateTeamMemberAdmin/:teamId/:userId/:teamCode/:userCode"
+          component={UpdateTeamMemberAdmin}
+        />
+        <Route
+          exact
+          path="/addMember/:teamId/:userId/:teamCode"
+          component={AddTeamMemberAdmin}
         />
         <Route
           exact

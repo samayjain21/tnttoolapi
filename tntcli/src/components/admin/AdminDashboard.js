@@ -1,0 +1,60 @@
+import React, { Component } from "react";
+import Header from "./../layout/Header";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
+import { getTeams } from "./../../action/adminAction";
+import TeamList from "./TeamList";
+import { Link } from "react-router-dom";
+
+class AdminDashboard extends Component {
+  componentDidMount() {
+    const { teamCode } = this.props.match.params;
+    this.props.getTeams(this.props.history);
+  }
+
+  render() {
+    const { teams } = this.props.teams;
+    const { teamCode, userCode } = this.props.match.params;
+
+    return (
+      <div className="adminDash ">
+        <Header teamCode={teamCode} userCode={userCode} />
+        <div className="mx-5 d-flex justify-content-end mt-n2">
+          <Link
+            type="button"
+            className="rounded btn btn-success px-3 ml-3"
+            to={`/addTeamForm/${teamCode}/${userCode}`}
+          >
+            <i className="fa fa-plus" aria-hidden="true"></i> Add Team
+          </Link>
+          <Link
+            type="button"
+            className="rounded btn btn-info px-3 ml-3"
+            to={`/listAllEmployees/${teamCode}/${userCode}`}
+          >
+            <i className="fa fa-list" aria-hidden="true"></i> All Employees
+          </Link>
+        </div>
+        <div className="team-list ml-5 ">
+          {teams.map((team) => (
+            <TeamList
+              key={team.id}
+              team={team}
+              userCode={userCode}
+              teamCode={teamCode}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  }
+}
+
+AdminDashboard.propTypes = {
+  // todo: PropTypes.object.isRequired,
+  getTeams: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
+  teams: state.teams,
+});
+export default connect(mapStateToProps, { getTeams })(AdminDashboard);

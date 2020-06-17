@@ -47,14 +47,15 @@ class UpdateTodoForm extends Component {
       status: this.state.status,
       comment: this.state.comment,
     };
-    this.props.createTodo(
-      teamCode,
-      this.state.userCode,
-      userCode,
-      updateTodo,
-      this.state.role,
-      this.props.history
-    );
+    window.confirm("Are you sure you want to Update this TODO?") &&
+      this.props.createTodo(
+        teamCode,
+        this.state.userCode,
+        userCode,
+        updateTodo,
+        this.state.role,
+        this.props.history
+      );
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -186,6 +187,7 @@ class UpdateTodoForm extends Component {
                       name="dueDateAndTime"
                       value={this.state.dueDateAndTime}
                       onChange={this.onChange}
+                      required
                     />
                   </div>
                   <div className="input-group form-group">

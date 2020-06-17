@@ -24,9 +24,9 @@ class Header extends Component {
     return (
       <div id="main-header">
         <nav className=" navbar navbar-expand-sm  mb-4 mx-5">
-          <a className="navbar-brand text-light mt-n1">
+          <Link className="navbar-brand text-light mt-n1" to="">
             Team & TODO Management Tool
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -41,29 +41,29 @@ class Header extends Component {
               <li className="nav-item text-light mt-2 mr-5 font-weight-light font-italic">
                 Welcome, {this.state.name}!
               </li>
-              <a
-                class="nav-link dropdown-toggle text-light"
-                href="#"
+              <Link
+                className="nav-link dropdown-toggle text-light"
+                to="#"
                 id="navbarDropdownMenuLink"
                 role="button"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                <i class="fa fa-user mt-n1" aria-hidden="true"></i>
-              </a>
+                <i className="fa fa-user mt-n1" aria-hidden="true"></i>
+              </Link>
               <div
-                class="dropdown-menu"
+                className="dropdown-menu"
                 aria-labelledby="navbarDropdownMenuLink"
               >
                 <Link
-                  class="dropdown-item"
+                  className="dropdown-item"
                   to={`/updateUserCredentials/${teamCode}/${userCode}`}
                 >
-                  Edit Credentials <i className="fa fa-edit icons"></i>
+                  Manage Credentials <i className="fa fa-edit icons"></i>
                 </Link>
                 <Link className="nav-link text-dark ml-3" to="/">
-                  Sign Out <i class="fas fa-sign-out-alt"></i>
+                  Sign Out <i className="fas fa-sign-out-alt"></i>
                 </Link>
               </div>
             </ul>

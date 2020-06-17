@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
     case DELETE_TEAM:
       return {
         ...state,
-        team: state.teams.filter((team) => team.teamCode !== action.payload),
+        teams: state.teams.filter((team) => team.teamCode !== action.payload),
       };
     default:
       return state;

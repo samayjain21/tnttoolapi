@@ -5,8 +5,8 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 class UserItem extends Component {
   onDeleteClick = (teamCode, userCode) => {
-    console.log("-------> delete method called.");
-    this.props.deleteUser(teamCode, userCode);
+    window.confirm("Are you sure you want to remove this member?") &&
+      this.props.deleteUser(teamCode, userCode);
   };
   render() {
     const { user } = this.props;

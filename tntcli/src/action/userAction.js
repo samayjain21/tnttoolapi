@@ -12,6 +12,10 @@ export const login = (user, history) => async (dispatch) => {
     console.log("==>>", user);
     const res = await axios.post("http://localhost:8081/api/user/login", user);
     console.log("response in react", res);
+
+    if (res.data.role === 3) {
+      history.push(`/adminDashboard/${res.data.teamCode}/${res.data.userCode}`);
+    }
     if (res.data.role === 2) {
       history.push(
         `/teamLeadDashboard/${res.data.teamCode}/${res.data.userCode}`
@@ -94,6 +98,25 @@ export const updateUser = (teamCode, userCode, user, history) => async (
     if (user.role === 1) {
       history.push(`/teamMemberDashboard/${teamCode}/${userCode}`);
     }
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data,
+    });
+  }
+};
+
+export const createUserViaAdmin = (
+  teamId,
+  userId,
+  user,
+  teamCode,
+  history
+) => async (dispatch) => {
+  try {
+    await axios.post(`http://localhost:8081/api/user/${teamCode}/`, user);
+    console.log("user role team lead -" + user.role);
+    history.push(`/listTeamMember/${teamId}/${userId}/${teamCode}`);
   } catch (error) {
     dispatch({
       type: GET_ERRORS,

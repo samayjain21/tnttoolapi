@@ -35,7 +35,6 @@ public class TeamController {
 		if (errorMap != null) {
 			return errorMap;
 		}
-
 		Team newTeam = teamService.saveOrUpdate(team);
 		return new ResponseEntity<Team>(newTeam, HttpStatus.CREATED);
 	}

@@ -1,19 +1,25 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import classnames from "classnames";
+import { getUser } from "../../action/userAction";
+import { createUserViaAdmin } from "./../../action/userAction";
 import Header from "./../layout/Header";
-import BackToMemberListboardButton from "./BackToMemberListboardButton";
-import { createUser } from "./../../action/userAction";
+import classnames from "classnames";
+import { Link } from "react-router-dom";
 
-class AddTeamMember extends Component {
+class UpdateTeamMemberAdmin extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      id: "",
       name: "",
       username: "",
       password: "password",
-      role: "1",
+      role: "",
+      userCode: "",
+      teamCode: "",
+      teamId: "",
+      taskSequence: "",
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -23,36 +29,81 @@ class AddTeamMember extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
+    const {
+      id,
+      name,
+      username,
+      password,
+      role,
+      userCode,
+      teamId,
+      teamCode,
+      taskSequence,
+    } = nextProps.user;
+    this.setState({
+      id,
+      name,
+      username,
+      password,
+      role,
+      userCode,
+      teamId,
+      teamCode,
+      taskSequence,
+    });
+  }
+
+  componentDidMount() {
+    const { teamCode, userCode } = this.props.match.params;
+    this.props.getUser(teamCode, userCode, this.props.history);
   }
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
   onSubmit(event) {
+    const { teamId, userId } = this.props.match.params;
     event.preventDefault();
-    const { teamCode, userCode } = this.props.match.params;
-    const newUser = {
+    const updateUser = {
+      id: this.state.id,
       name: this.state.name,
       username: this.state.username,
       password: this.state.password,
       role: this.state.role,
+      teamId: this.state.teamId,
+      teamCode: this.state.teamCode,
+      taskSequence: this.state.taskSequence,
     };
 
-    window.confirm("Are you sure you want to add this member to the team ?") &&
-      this.props.createUser(teamCode, userCode, newUser, this.props.history);
+    window.confirm(
+      "Are you sure you want to Update the details of this member ?"
+    ) &&
+      this.props.createUserViaAdmin(
+        teamId,
+        userId,
+        updateUser,
+        this.state.teamCode,
+        this.props.history
+      );
   }
   render() {
     const { errors } = this.state;
-    const { teamCode, userCode } = this.props.match.params;
+    const { userId, teamId, teamCode } = this.props.match.params;
     return (
       <div className="add-user">
-        <Header teamCode={teamCode} userCode={userCode} />
-        <BackToMemberListboardButton teamCode={teamCode} userCode={userCode} />
+        <Header teamCode={teamId} userCode={userId} />
+        <Link
+          to={`/listTeamMember/${teamId}/${userId}/${teamCode}`}
+          type="button"
+          className="btn btn-outline-light ml-3 mt-n3 rounded-circle"
+        >
+          <i className="fa fa-arrow-left" aria-hidden="true"></i>
+        </Link>
         <div className="add-user-form container">
           <div className="d-flex justify-content-center h-100">
             <div className="card">
               <div className="card-body">
                 <h5 className="display-5 text-center text-light">
-                  Add Team Member
+                  Update Team Member
                 </h5>
                 <hr />
                 <form onSubmit={this.onSubmit}>
@@ -75,22 +126,31 @@ class AddTeamMember extends Component {
                     <input
                       type="text"
                       className={classnames("form-control", {
-                        "is-invalid": errors.username,
-                        "is-invalid ": errors.userCode,
+                        "is-invalid": errors.userCode,
                       })}
                       placeholder="Username"
                       name="username"
                       value={this.state.username}
                       onChange={this.onChange}
                     />
-                    {errors.username && (
-                      <div className="invalid-feedback">{errors.username}</div>
-                    )}
                     {errors.userCode && (
                       <div className="invalid-feedback">{errors.userCode}</div>
                     )}
                   </div>
 
+                  <div className="input-group form-group">
+                    <select
+                      className="form-control"
+                      name="role"
+                      value={this.state.role}
+                      onChange={this.onChange}
+                      required
+                    >
+                      <option value={0}>Select role</option>
+                      <option value={1}>Team Member</option>
+                      <option value={2}>Team Lead</option>
+                    </select>
+                  </div>
                   <input type="submit" className="btn float-right login_btn" />
                 </form>
               </div>
@@ -101,11 +161,16 @@ class AddTeamMember extends Component {
     );
   }
 }
-AddTeamMember.propTypes = {
-  createUser: PropTypes.func.isRequired,
+UpdateTeamMemberAdmin.propTypes = {
+  user: PropTypes.object.isRequired,
+  getUser: PropTypes.func.isRequired,
+  createUserViaAdmin: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   errors: state.errors,
+  user: state.users.user,
 });
-export default connect(mapStateToProps, { createUser })(AddTeamMember);
+export default connect(mapStateToProps, { getUser, createUserViaAdmin })(
+  UpdateTeamMemberAdmin
+);

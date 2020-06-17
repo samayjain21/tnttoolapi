@@ -54,7 +54,11 @@ class UpdateTeamMember extends Component {
       password: this.state.password,
       role: this.state.role,
     };
-    this.props.createUser(teamCode, userCode, updateUser, this.props.history);
+
+    window.confirm(
+      "Are you sure you want to Update the details of this member ?"
+    ) &&
+      this.props.createUser(teamCode, userCode, updateUser, this.props.history);
   }
   render() {
     const { errors } = this.state;

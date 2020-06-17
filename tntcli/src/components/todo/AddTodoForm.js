@@ -58,6 +58,7 @@ class AddTodoForm extends Component {
       status: this.state.status,
       comment: this.state.comment,
     };
+    console.log("------" + newTodo);
     this.props.createTodo(
       teamCode,
       this.state.userCode,
@@ -160,15 +161,6 @@ class AddTodoForm extends Component {
                       <option value="In-Progress">In-Progress</option>
                       <option value="Completed">Completed</option>
                     </select>
-                    {/*                   <input
-                      type="text"
-                      className="form-control "
-                      placeholder="Todo status"
-                      name="status"
-                      value={this.state.status}
-                      onChange={this.onChange}
-                    />
-*/}
                   </div>
 
                   <div className="input-group form-group">
@@ -178,6 +170,7 @@ class AddTodoForm extends Component {
                       name="dueDateAndTime"
                       value={this.state.dueDateAndTime}
                       onChange={this.onChange}
+                      required
                     />
                   </div>
                   <div className="input-group form-group">
