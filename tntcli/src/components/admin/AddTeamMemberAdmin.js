@@ -101,17 +101,38 @@ class AddTeamMemberAdmin extends Component {
                   </div>
 
                   <div className="input-group form-group">
-                    <select
-                      className="form-control"
-                      name="role"
-                      value={this.state.role}
-                      onChange={this.onChange}
-                      required
-                    >
-                      <option value={0}>Select role</option>
-                      <option value={1}>Team Member</option>
-                      <option value={2}>Team Lead</option>
-                    </select>
+                    {(() => {
+                      switch (teamCode) {
+                        case "A01":
+                          return (
+                            <select
+                              className="form-control"
+                              name="role"
+                              value={this.state.role}
+                              onChange={this.onChange}
+                              required
+                            >
+                              <option value={0}>Select role</option>
+                              <option value={3}>Admin</option>
+                            </select>
+                          );
+
+                        default:
+                          return (
+                            <select
+                              className="form-control"
+                              name="role"
+                              value={this.state.role}
+                              onChange={this.onChange}
+                              required
+                            >
+                              <option value={0}>Select role</option>
+                              <option value={1}>Team Member</option>
+                              <option value={2}>Team Lead</option>
+                            </select>
+                          );
+                      }
+                    })()}
                   </div>
                   <input type="submit" className="btn float-right login_btn" />
                 </form>

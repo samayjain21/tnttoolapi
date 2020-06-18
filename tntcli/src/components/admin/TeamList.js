@@ -40,9 +40,18 @@ class TeamList extends Component {
           <i className="fa fa-edit icons"></i>
         </Link>
 
-        <div onClick={this.onDeleteClick.bind(this, team.teamCode)}>
-          <i className="fa fa-trash icons"></i>
-        </div>
+        {(() => {
+          switch (team.teamCode) {
+            case "A01":
+              return;
+            default:
+              return (
+                <div onClick={this.onDeleteClick.bind(this, team.teamCode)}>
+                  <i className="fa fa-trash icons"></i>
+                </div>
+              );
+          }
+        })()}
       </div>
     );
   }

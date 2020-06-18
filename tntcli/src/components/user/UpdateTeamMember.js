@@ -26,12 +26,11 @@ class UpdateTeamMember extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    const { id, name, username, password, role, userCode } = nextProps.user;
+    const { id, name, username, role, userCode } = nextProps.user;
     this.setState({
       id,
       name,
       username,
-      password,
       role,
       userCode,
     });
@@ -63,6 +62,7 @@ class UpdateTeamMember extends Component {
   render() {
     const { errors } = this.state;
     const { teamCode, userCode } = this.props.match.params;
+    console.log("---------userCode  update form- " + userCode);
     return (
       <div className="add-user">
         <Header teamCode={teamCode} userCode={userCode} />

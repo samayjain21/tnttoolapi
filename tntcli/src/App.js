@@ -24,6 +24,7 @@ import UpdateTeamForm from "./components/admin/UpdateTeamForm";
 import AllTeamMember from "./components/admin/AllTeamMember";
 import UpdateTeamMemberAdmin from "./components/admin/UpdateTeamMemberAdmin";
 import AddTeamMemberAdmin from "./components/admin/AddTeamMemberAdmin";
+import ListAllEmployees from "./components/admin/ListAllEmployees";
 function App() {
   return (
     <Provider store={store}>
@@ -105,6 +106,11 @@ function App() {
           exact
           path="/addTeamMember/:teamCode/:userCode"
           component={AddTeamMember}
+        />
+        <Route
+          exact
+          path="/listAllEmployees/:teamCode/:userCode"
+          component={ListAllEmployees}
         />
         <Route
           exact

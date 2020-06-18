@@ -29,26 +29,33 @@ public class UserService {
 			user.setTeam(team);
 			// setting team code to user
 			user.setTeamCode(teamCode);
-			
+
 			// generating userCode with teamCode and userSequence
 			Integer userSequence = team.getUserSequence();
 			userSequence++;
 			team.setUserSequence(userSequence);
 			user.setUserCode(user.getTeamCode() + "-" + userSequence);
-			//setting user as team lead if role is specified as that
-			if(user.getRole() ==2) {
-				team.setTeamLead(user.getName());
-				team.setTeamLeadCode(user.getUserCode());
+			// setting user as team lead if role is specified as that
+			if (user.getRole() == 2) {
+				if (team.getTeamLead() == null) {
+					team.setTeamLead(user.getName());
+					team.setTeamLeadCode(user.getUserCode());
+				} else {
+					String teamLeadCode = team.getTeamLeadCode();
+					User teamLead = findUserbyUcode(teamCode, teamLeadCode);
+					teamLead.setRole(1);
+					team.setTeamLead(user.getName());
+					team.setTeamLeadCode(user.getUserCode());
+				}
 			}
-			
+
 			return userRepository.save(user);
-		} 
-		catch(NullPointerException ex) {
-			throw  new TeamNotFoundException("team does not exist");
-		}catch(Exception e) {
+		} catch (NullPointerException ex) {
+			throw new TeamNotFoundException("team does not exist");
+		} catch (Exception e) {
 			throw new UsernameException("username already exist");
 		}
-		
+
 	}
 
 	public User findUserbyUcode(String teamCode, String userCode) {
@@ -85,8 +92,28 @@ public class UserService {
 	public User updateByUserCode(User updateUser, String team_id, String user_id) {
 		// find the user
 		User user = findUserbyUcode(team_id, user_id);
+		Team team = teamRepository.findByTeamCode(team_id);
+		//if role is changing from team lead to team member
+		if ((user.getRole() == 2) && (updateUser.getRole() == 1)) {
+			team.setTeamLead(null);
+			team.setTeamLeadCode(null);
+		}
 		// mapping new user to old user for updating
 		user = updateUser;
+
+		// setting team Lead in team if user role is assign as team lead (i.e. 2)
+		if (updateUser.getRole() == 2) {
+			if (team.getTeamLead() == null) {
+				team.setTeamLead(user.getName());
+				team.setTeamLeadCode(user.getUserCode());
+			} else {
+				String teamLeadCode = team.getTeamLeadCode();
+				User teamLead = findUserbyUcode(team_id, teamLeadCode);
+				teamLead.setRole(1);
+				team.setTeamLead(user.getName());
+				team.setTeamLeadCode(user.getUserCode());
+			}
+		}
 		// save user
 		return userRepository.save(user);
 	}
@@ -99,13 +126,12 @@ public class UserService {
 		// getting the team details from user
 		Team team = user.getTeam();
 
-		// Getting the list of users in the team
-		List<User> users = team.getUsers();
-		
-		if(user.getRole()==2) {
+		if (user.getRole() == 2) {
 			team.setTeamLead(null);
 			team.setTeamLeadCode(null);
 		}
+		// Getting the list of users in the team
+		List<User> users = team.getUsers();
 
 		// removing the user from the list of users
 		users.remove(user);
@@ -116,15 +142,19 @@ public class UserService {
 		// deleting the user from repository
 		userRepository.delete(user);
 	}
-	
+
 	public User userLoginCheck(String username, String password) {
 		User user = userRepository.findUserByUsername(username);
-		if(user ==  null) {
+		if (user == null) {
 			throw new UserNotFoundException("username does not exists");
 		}
-		if(!user.getPassword().equals(password)) {
+		if (!user.getPassword().equals(password)) {
 			throw new UserNotFoundException("worng password");
 		}
 		return user;
+	}
+	
+	public Iterable<User> listAllUsers() {
+		return userRepository.findAll();
 	}
 }

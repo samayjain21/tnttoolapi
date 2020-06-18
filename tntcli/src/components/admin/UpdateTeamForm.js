@@ -99,20 +99,8 @@ class UpdateTeamForm extends Component {
                       <div className="invalid-feedback">{errors.name}</div>
                     )}
                   </div>
-                  <div className="input-group form-group">
-                    <input
-                      type="text"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.teamCode,
-                      })}
-                      placeholder="teamCode"
-                      name="teamCode"
-                      value={this.state.teamCode}
-                      onChange={this.onChange}
-                    />
-                    {errors.teamCode && (
-                      <div className="invalid-feedback">{errors.teamCode}</div>
-                    )}
+                  <div className="input-group form-group text-secondary border border-white p-2 rounded">
+                    <span>{this.state.teamCode}</span>
                   </div>
 
                   <div className="input-group form-group">

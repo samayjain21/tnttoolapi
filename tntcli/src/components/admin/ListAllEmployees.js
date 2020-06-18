@@ -1,28 +1,32 @@
 import React, { Component } from "react";
-import { getUsers } from "../../action/userAction";
+import Header from "./../layout/Header";
+import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
-import Header from "../layout/Header";
-import BackToTeamMemberDashBoard from "./BackToTeamMemberDashBoard";
+import { getUsersList } from "../../action/userAction";
 
-class ListPeers extends Component {
+class ListAllEmployees extends Component {
   componentDidMount() {
-    const { teamCode } = this.props.match.params;
-    this.props.getUsers(teamCode, this.props.history);
+    this.props.getUsersList(this.props.history);
   }
-
   render() {
-    const { users } = this.props.users;
     const { teamCode, userCode } = this.props.match.params;
+    const { users } = this.props.users;
     return (
       <div>
         <Header teamCode={teamCode} userCode={userCode} />
-        <BackToTeamMemberDashBoard teamCode={teamCode} userCode={userCode} />
+        <Link
+          to={`/adminDashboard/${teamCode}/${userCode}`}
+          type="button"
+          className="btn btn-outline-light ml-3 mt-n3 rounded-circle"
+        >
+          <i className="fa fa-arrow-left" aria-hidden="true"></i>
+        </Link>
         {users.map((user) => (
-          <div className="container list-team-peer">
-            <div className="card card-body list-peer mb-3">
+          <div className="list-user-admin ">
+            <div className="card card-body list-users  mb-3">
               <div className="row">
-                <div className="list-peer-detail px-5">
+                <div className="list-users-details  px-5">
                   <h3>
                     <span>
                       {user.name}
@@ -48,9 +52,12 @@ class ListPeers extends Component {
                       </span>
                     </span>
                   </h3>
-
                   <small>
                     User Id : <span>{user.userCode}</span>
+                  </small>
+
+                  <small className="ml-3">
+                    Team Id : <span>{user.teamCode}</span>
                   </small>
                 </div>
               </div>
@@ -62,11 +69,11 @@ class ListPeers extends Component {
   }
 }
 
-ListPeers.propTypes = {
+ListAllEmployees.propTypes = {
   user: PropTypes.object.isRequired,
-  getUsers: PropTypes.func.isRequired,
+  getUsersList: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   users: state.users,
 });
-export default connect(mapStateToProps, { getUsers })(ListPeers);
+export default connect(mapStateToProps, { getUsersList })(ListAllEmployees);

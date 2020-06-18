@@ -18,9 +18,11 @@ class Header extends Component {
   componentWillReceiveProps(nextProps) {
     const { name } = nextProps.user;
     this.setState({ name });
+    console.log("----------" + this.state.uName);
   }
   render() {
     const { teamCode, userCode } = this.props;
+    console.log("----------" + userCode + "------------------ " + teamCode);
     return (
       <div id="main-header">
         <nav className=" navbar navbar-expand-sm  mb-4 mx-5">
@@ -38,9 +40,6 @@ class Header extends Component {
 
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav ml-auto">
-              <li className="nav-item text-light mt-2 mr-5 font-weight-light font-italic">
-                Welcome, {this.state.name}!
-              </li>
               <Link
                 className="nav-link dropdown-toggle text-light"
                 to="#"
@@ -60,7 +59,7 @@ class Header extends Component {
                   className="dropdown-item"
                   to={`/updateUserCredentials/${teamCode}/${userCode}`}
                 >
-                  Manage Credentials <i className="fa fa-edit icons"></i>
+                  Manage Credentials <i className="fa fa-cog fa-spin fa-1x"></i>
                 </Link>
                 <Link className="nav-link text-dark ml-3" to="/">
                   Sign Out <i className="fas fa-sign-out-alt"></i>

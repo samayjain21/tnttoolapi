@@ -75,4 +75,9 @@ public class UserController {
 		User loggedInUser = userService.userLoginCheck(user.getUsername(), user.getPassword());
 		return new ResponseEntity<User>(loggedInUser,HttpStatus.OK);
 	}
+	
+	@GetMapping("/all")
+	public Iterable<User> findAllUsers() {
+		return userService.listAllUsers();
+	}
 }

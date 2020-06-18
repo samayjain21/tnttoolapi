@@ -10,3 +10,4 @@ export const DELETE_USER = "DELETE_USER";
 export const GET_TEAMS = "GET_TEAMS";
 export const GET_TEAM = "GET_TEAM";
 export const DELETE_TEAM = "DELETE_TEAM";
+export const LIST_ALL_USERS = "LIST_ALL_USERS";

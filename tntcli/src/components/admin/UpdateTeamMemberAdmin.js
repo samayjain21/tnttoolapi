@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { getUser } from "../../action/userAction";
-import { createUserViaAdmin } from "./../../action/userAction";
+import { updateUserViaAdmin } from "./../../action/userAction";
 import Header from "./../layout/Header";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
@@ -33,7 +33,6 @@ class UpdateTeamMemberAdmin extends Component {
       id,
       name,
       username,
-      password,
       role,
       userCode,
       teamId,
@@ -44,7 +43,6 @@ class UpdateTeamMemberAdmin extends Component {
       id,
       name,
       username,
-      password,
       role,
       userCode,
       teamId,
@@ -70,6 +68,7 @@ class UpdateTeamMemberAdmin extends Component {
       password: this.state.password,
       role: this.state.role,
       teamId: this.state.teamId,
+      userCode: this.state.userCode,
       teamCode: this.state.teamCode,
       taskSequence: this.state.taskSequence,
     };
@@ -77,7 +76,7 @@ class UpdateTeamMemberAdmin extends Component {
     window.confirm(
       "Are you sure you want to Update the details of this member ?"
     ) &&
-      this.props.createUserViaAdmin(
+      this.props.updateUserViaAdmin(
         teamId,
         userId,
         updateUser,
@@ -139,17 +138,38 @@ class UpdateTeamMemberAdmin extends Component {
                   </div>
 
                   <div className="input-group form-group">
-                    <select
-                      className="form-control"
-                      name="role"
-                      value={this.state.role}
-                      onChange={this.onChange}
-                      required
-                    >
-                      <option value={0}>Select role</option>
-                      <option value={1}>Team Member</option>
-                      <option value={2}>Team Lead</option>
-                    </select>
+                    {(() => {
+                      switch (teamCode) {
+                        case "A01":
+                          return (
+                            <select
+                              className="form-control"
+                              name="role"
+                              value={this.state.role}
+                              onChange={this.onChange}
+                              required
+                            >
+                              <option value={0}>Select role</option>
+                              <option value={3}>Admin</option>
+                            </select>
+                          );
+
+                        default:
+                          return (
+                            <select
+                              className="form-control"
+                              name="role"
+                              value={this.state.role}
+                              onChange={this.onChange}
+                              required
+                            >
+                              <option value={0}>Select role</option>
+                              <option value={1}>Team Member</option>
+                              <option value={2}>Team Lead</option>
+                            </select>
+                          );
+                      }
+                    })()}
                   </div>
                   <input type="submit" className="btn float-right login_btn" />
                 </form>
@@ -164,13 +184,13 @@ class UpdateTeamMemberAdmin extends Component {
 UpdateTeamMemberAdmin.propTypes = {
   user: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
-  createUserViaAdmin: PropTypes.func.isRequired,
+  updateUserViaAdmin: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   errors: state.errors,
   user: state.users.user,
 });
-export default connect(mapStateToProps, { getUser, createUserViaAdmin })(
+export default connect(mapStateToProps, { getUser, updateUserViaAdmin })(
   UpdateTeamMemberAdmin
 );

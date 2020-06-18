@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 
 class AdminDashboard extends Component {
   componentDidMount() {
-    const { teamCode } = this.props.match.params;
     this.props.getTeams(this.props.history);
   }
 
@@ -29,7 +28,7 @@ class AdminDashboard extends Component {
           </Link>
           <Link
             type="button"
-            className="rounded btn btn-info px-3 ml-3"
+            className="rounded btn btn-warning px-3 ml-3"
             to={`/listAllEmployees/${teamCode}/${userCode}`}
           >
             <i className="fa fa-list" aria-hidden="true"></i> All Employees
@@ -51,7 +50,6 @@ class AdminDashboard extends Component {
 }
 
 AdminDashboard.propTypes = {
-  // todo: PropTypes.object.isRequired,
   getTeams: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({

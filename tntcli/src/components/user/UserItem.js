@@ -19,7 +19,26 @@ class UserItem extends Component {
               <h3>
                 <span>
                   {user.name}
-                  <span className="font-italic h6"> ({user.username})</span>
+                  <span className="font-italic h6">
+                    {" "}
+                    ({user.username}){" "}
+                    {(() => {
+                      switch (user.role) {
+                        case 2:
+                          return (
+                            <span>
+                              -{" "}
+                              <span className="text-danger">
+                                Team Lead <br />
+                              </span>
+                            </span>
+                          );
+
+                        default:
+                          return;
+                      }
+                    })()}
+                  </span>
                 </span>
               </h3>
               <small>

@@ -13,7 +13,7 @@
   color: #a9a9a9;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  margin: 0 20% 0 20%;
+  margin: 0 13% 0 13%;
 }
 .list-team-member .list-member:hover {
   background-color: black;
@@ -28,7 +28,7 @@
 /**List Team Peer*/
 .list-team-peer .list-peer {
   background-color: rgba(0, 0, 0, 0.911);
-  margin: 0 310px 0px 310px;
+  margin: 0 240px 0px 240px;
   border-radius: 10px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
@@ -42,6 +42,29 @@
 }
 
 .list-team-peer .list-peer:hover {
+  background-color: black;
+}
+/**List ALL Users Admin*/
+
+.list-user-admin .list-users {
+  background-color: rgba(0, 0, 0, 0.911);
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  float: left;
+  min-width: 576px;
+  margin-left: 7%;
+  margin-right: -3%;
+}
+.list-user-admin .list-users .list-users-details {
+  font-size: 14px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #a9a9a9;
+}
+.list-user-admin .list-users .list-users-details span {
+  color: #f5fffa;
+}
+
+.list-user-admin .list-users:hover {
   background-color: black;
 }
 /*TodoList*/

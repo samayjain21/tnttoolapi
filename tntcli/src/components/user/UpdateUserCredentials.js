@@ -38,6 +38,7 @@ class UpdateUserCredentials extends Component {
       role,
       userCode,
     });
+    console.log("----------- name - " + this.state.name);
   }
   componentDidMount() {
     const { teamCode, userId } = this.props.match.params;
@@ -159,7 +160,7 @@ class UpdateUserCredentials extends Component {
                     <input
                       type="password"
                       className="form-control"
-                      placeholder="Re-Enter New Password"
+                      placeholder="Enter New Password"
                       name="newPassword"
                       value={this.state.newPassword}
                       onChange={this.onChange}
@@ -169,7 +170,7 @@ class UpdateUserCredentials extends Component {
                     <input
                       type="password"
                       className="form-control"
-                      placeholder="Enter New Password"
+                      placeholder="Re-Enter New Password"
                       name="confirmPassword"
                       value={this.state.confirmPassword}
                       onChange={this.onChange}
