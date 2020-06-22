@@ -193,12 +193,19 @@ class UpdateTodoForm extends Component {
                       data-toggle="tooltip"
                       title="Update due date here"
                       type="date"
-                      className="form-control"
+                      className={classnames("form-control ", {
+                        "is-invalid": errors.dueDateAndTime,
+                      })}
                       name="dueDateAndTime"
                       value={this.state.dueDateAndTime}
                       onChange={this.onChange}
                       required
                     />
+                    {errors.dueDateAndTime && (
+                      <div className="invalid-feedback">
+                        {errors.dueDateAndTime}
+                      </div>
+                    )}
                   </div>
                   <div className="input-group form-group">
                     <textarea
