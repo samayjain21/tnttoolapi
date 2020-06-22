@@ -59,14 +59,15 @@ class AddTodoForm extends Component {
       comment: this.state.comment,
     };
     console.log("------" + newTodo);
-    this.props.createTodo(
-      teamCode,
-      this.state.userCode,
-      userCode,
-      newTodo,
-      this.state.role,
-      this.props.history
-    );
+    window.confirm("Are you sure you want to Add this TODO?") &&
+      this.props.createTodo(
+        teamCode,
+        this.state.userCode,
+        userCode,
+        newTodo,
+        this.state.role,
+        this.props.history
+      );
   }
 
   render() {
@@ -90,6 +91,8 @@ class AddTodoForm extends Component {
                 <form onSubmit={this.onSubmit}>
                   <div className="input-group form-group">
                     <input
+                      data-toggle="tooltip"
+                      title="Enter TODO name here"
                       type="text"
                       className={classnames("form-control ", {
                         "is-invalid": errors.name,
@@ -106,6 +109,8 @@ class AddTodoForm extends Component {
                   </div>
                   <div className="input-group form-group">
                     <textarea
+                      data-toggle="tooltip"
+                      title="Write TODO details here"
                       className={classnames("form-control ", {
                         "is-invalid": errors.detail,
                       })}
@@ -165,16 +170,27 @@ class AddTodoForm extends Component {
 
                   <div className="input-group form-group">
                     <input
+                      data-toggle="tooltip"
+                      title="Enter due date here"
                       type="date"
-                      className="form-control"
+                      className={classnames("form-control ", {
+                        "is-invalid": errors.dueDateAndTime,
+                      })}
                       name="dueDateAndTime"
                       value={this.state.dueDateAndTime}
                       onChange={this.onChange}
                       required
                     />
+                    {errors.dueDateAndTime && (
+                      <div className="invalid-feedback">
+                        {errors.dueDateAndTime}
+                      </div>
+                    )}
                   </div>
                   <div className="input-group form-group">
                     <textarea
+                      data-toggle="tooltip"
+                      title="Write comments here"
                       className={classnames("form-control ", {
                         "is-invalid": errors.comment,
                       })}

@@ -25,10 +25,10 @@ class TeamMemberDashboard extends Component {
             className="rounded btn btn-warning px-3 ml-3"
             to={`/listPeers/${teamCode}/${userCode}`}
           >
-            <i className="fa fa-list" aria-hidden="true"></i> List Members
+            <i class="fas fa-users"></i> List Members
           </Link>
         </div>
-        <div className="todo-list-member ml-5 ">
+        <div className="todo-list-member ml-5">
           {todos.map((todo) => (
             <TodoListMember key={todo.id} todo={todo} userCode={userCode} />
           ))}

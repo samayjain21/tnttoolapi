@@ -117,6 +117,8 @@ class UpdateTodoForm extends Component {
                 <form onSubmit={this.onSubmit}>
                   <div className="input-group form-group">
                     <input
+                      data-toggle="tooltip"
+                      title="Update TODO name here"
                       type="text"
                       className={classnames("form-control ", {
                         "is-invalid": errors.name,
@@ -132,6 +134,8 @@ class UpdateTodoForm extends Component {
                   </div>
                   <div className="input-group form-group">
                     <textarea
+                      data-toggle="tooltip"
+                      title="Update TODO details here"
                       className={classnames("form-control ", {
                         "is-invalid": errors.detail,
                       })}
@@ -155,6 +159,8 @@ class UpdateTodoForm extends Component {
                   </div>
                   <div className="input-group form-group">
                     <select
+                      data-toggle="tooltip"
+                      title="Update TODO priority here"
                       className="form-control"
                       name="priority"
                       value={this.state.priority}
@@ -168,6 +174,8 @@ class UpdateTodoForm extends Component {
                   </div>
                   <div className="input-group form-group">
                     <select
+                      data-toggle="tooltip"
+                      title="Update TODO status here"
                       className="form-control"
                       name="status"
                       value={this.state.status}
@@ -182,6 +190,8 @@ class UpdateTodoForm extends Component {
 
                   <div className="input-group form-group">
                     <input
+                      data-toggle="tooltip"
+                      title="Update due date here"
                       type="date"
                       className="form-control"
                       name="dueDateAndTime"
@@ -192,6 +202,8 @@ class UpdateTodoForm extends Component {
                   </div>
                   <div className="input-group form-group">
                     <textarea
+                      data-toggle="tooltip"
+                      title="Update comments here"
                       className={classnames("form-control ", {
                         "is-invalid": errors.comment,
                       })}

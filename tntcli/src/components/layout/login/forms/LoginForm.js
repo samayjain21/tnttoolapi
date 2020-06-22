@@ -45,8 +45,7 @@ class LoginForm extends Component {
           <div className="d-flex justify-content-center h-100">
             <div className="card">
               <div className="card-header">
-                <h3 className="text-light">Sign In</h3>
-
+                <h3 className="text-light mt-5">ACCOUNT LOGIN</h3>
                 <div className="d-flex justify-content-end social_icon">
                   <span>
                     <i className="fab fa-facebook-square"></i>
@@ -59,7 +58,7 @@ class LoginForm extends Component {
                   </span>
                 </div>
               </div>
-              <div className="card-body">
+              <div className="card-body mt-n3">
                 <form onSubmit={this.onSubmit}>
                   <div className="input-group form-group">
                     <div className="input-group-prepend">
@@ -70,7 +69,7 @@ class LoginForm extends Component {
                     <input
                       type="text"
                       name="username"
-                      className={classnames("form-control ", {
+                      className={classnames("form-control", {
                         "is-invalid": errors.userCode,
                       })}
                       placeholder="username"
@@ -87,7 +86,7 @@ class LoginForm extends Component {
                     <input
                       type="password"
                       name="password"
-                      className={classnames("form-control ", {
+                      className={classnames("form-control", {
                         "is-invalid": errors.userCode,
                       })}
                       placeholder="password"
@@ -98,7 +97,6 @@ class LoginForm extends Component {
                       <div className="invalid-feedback">{errors.userCode}</div>
                     )}
                   </div>
-
                   <input type="submit" className="btn float-right login_btn" />
                 </form>
               </div>

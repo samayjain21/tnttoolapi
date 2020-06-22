@@ -6,6 +6,7 @@ import Header from "../layout/Header";
 import { updateUser, getUser } from "./../../action/userAction";
 import BackToDashboardButton from "./BackToDashBoardButton";
 import BackToTeamMemberDashBoard from "./BackToTeamMemberDashBoard";
+import { Link } from "react-router-dom";
 
 class UpdateUserCredentials extends Component {
   constructor(props) {
@@ -92,7 +93,7 @@ class UpdateUserCredentials extends Component {
     const { teamCode, userCode } = this.props.match.params;
     const { user } = this.props;
     return (
-      <div className="add-user">
+      <div className="add-user-credentials">
         <Header teamCode={teamCode} userCode={userCode} />
         {(() => {
           switch (user.role) {
@@ -114,7 +115,16 @@ class UpdateUserCredentials extends Component {
                   />
                 </div>
               );
-
+            case 3:
+              return (
+                <Link
+                  to={`/adminDashboard/${teamCode}/${userCode}`}
+                  type="button"
+                  className="btn btn-outline-light ml-3 mt-n3 rounded-circle"
+                >
+                  <i className="fa fa-arrow-left" aria-hidden="true"></i>
+                </Link>
+              );
             default:
               return "";
           }
@@ -132,7 +142,14 @@ class UpdateUserCredentials extends Component {
                     {this.state.name}
                   </div>
                   <div className="input-group form-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text bg-warning border border-warning">
+                        <i className="fas fa-user"></i>
+                      </span>
+                    </div>
                     <input
+                      data-toggle="tooltip"
+                      title="Update username here"
                       type="text"
                       className={classnames("form-control", {
                         "is-invalid": errors.username,
@@ -147,6 +164,11 @@ class UpdateUserCredentials extends Component {
                     )}
                   </div>
                   <div className="input-group form-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text bg-warning border border-warning">
+                        <i className="fa fa-lock"></i>
+                      </span>
+                    </div>
                     <input
                       type="password"
                       className="form-control"
@@ -157,6 +179,11 @@ class UpdateUserCredentials extends Component {
                     />
                   </div>
                   <div className="input-group form-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text bg-warning border border-warning">
+                        <i className="fas fa-key"></i>
+                      </span>
+                    </div>
                     <input
                       type="password"
                       className="form-control"
@@ -167,6 +194,11 @@ class UpdateUserCredentials extends Component {
                     />
                   </div>
                   <div className="input-group form-group">
+                    <div className="input-group-prepend">
+                      <span className="input-group-text bg-warning border border-warning">
+                        <i className="fas fa-key"></i>
+                      </span>
+                    </div>
                     <input
                       type="password"
                       className="form-control"

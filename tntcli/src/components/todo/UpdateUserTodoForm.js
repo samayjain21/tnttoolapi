@@ -130,6 +130,8 @@ class UpdateUserTodoForm extends Component {
 
                   <div className="input-group form-group">
                     <select
+                      data-toggle="tooltip"
+                      title="Update TODO status here"
                       className="form-control"
                       name="status"
                       value={this.state.status}
@@ -142,11 +144,13 @@ class UpdateUserTodoForm extends Component {
                     </select>
                   </div>
                   <div className="input-group form-group text-secondary border border-white p-2 rounded">
-                    {this.state.dueDateAndTime}
+                    <span>{this.state.dueDateAndTime}</span>
                   </div>
 
                   <div className="input-group form-group">
                     <textarea
+                      data-toggle="tooltip"
+                      title="Update comments here"
                       className={classnames("form-control ", {
                         "is-invalid": errors.comment,
                       })}

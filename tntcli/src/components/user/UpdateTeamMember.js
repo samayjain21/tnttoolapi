@@ -65,7 +65,7 @@ class UpdateTeamMember extends Component {
     console.log("---------userCode  update form- " + userCode);
     return (
       <div className="add-user">
-        <Header teamCode={teamCode} userCode={userCode} />
+        <Header />
         <BackToMemberListboardButton teamCode={teamCode} userCode={userCode} />
         <div className="add-user-form container">
           <div className="d-flex justify-content-center h-100">
@@ -78,6 +78,8 @@ class UpdateTeamMember extends Component {
                 <form onSubmit={this.onSubmit}>
                   <div className="input-group form-group">
                     <input
+                      data-toggle="tooltip"
+                      title="Update name here"
                       type="text"
                       className={classnames("form-control", {
                         "is-invalid": errors.name,
@@ -93,6 +95,8 @@ class UpdateTeamMember extends Component {
                   </div>
                   <div className="input-group form-group">
                     <input
+                      data-toggle="tooltip"
+                      title="Update username here"
                       type="text"
                       className={classnames("form-control", {
                         "is-invalid": errors.username,

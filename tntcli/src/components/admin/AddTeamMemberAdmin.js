@@ -71,6 +71,8 @@ class AddTeamMemberAdmin extends Component {
                 <form onSubmit={this.onSubmit}>
                   <div className="input-group form-group">
                     <input
+                      data-toggle="tooltip"
+                      title="Enter name here"
                       type="text"
                       className={classnames("form-control", {
                         "is-invalid": errors.name,
@@ -86,17 +88,19 @@ class AddTeamMemberAdmin extends Component {
                   </div>
                   <div className="input-group form-group">
                     <input
+                      data-toggle="tooltip"
+                      title="Enter username here"
                       type="text"
                       className={classnames("form-control", {
-                        "is-invalid": errors.userCode,
+                        "is-invalid": errors.username,
                       })}
                       placeholder="Username"
                       name="username"
                       value={this.state.username}
                       onChange={this.onChange}
                     />
-                    {errors.userCode && (
-                      <div className="invalid-feedback">{errors.userCode}</div>
+                    {errors.username && (
+                      <div className="invalid-feedback">{errors.username}</div>
                     )}
                   </div>
 
@@ -106,6 +110,8 @@ class AddTeamMemberAdmin extends Component {
                         case "A01":
                           return (
                             <select
+                              data-toggle="tooltip"
+                              title="Select role here"
                               className="form-control"
                               name="role"
                               value={this.state.role}
@@ -120,6 +126,8 @@ class AddTeamMemberAdmin extends Component {
                         default:
                           return (
                             <select
+                              data-toggle="tooltip"
+                              title="Select role here"
                               className="form-control"
                               name="role"
                               value={this.state.role}
