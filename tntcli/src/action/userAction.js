@@ -120,7 +120,11 @@ export const createUserViaAdmin = (
   try {
     await axios.post(`http://localhost:8081/api/user/${teamCode}/`, user);
     console.log("user role team lead -" + user.role);
-    history.push(`/listTeamMember/${teamId}/${userId}/${teamCode}`);
+
+    if (userId == "") {
+    } else {
+      history.push(`/listTeamMember/${teamId}/${userId}/${teamCode}`);
+    }
   } catch (error) {
     dispatch({
       type: GET_ERRORS,

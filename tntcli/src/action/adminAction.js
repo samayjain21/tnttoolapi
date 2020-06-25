@@ -7,6 +7,7 @@ export const createTeam = (teamCode, userCode, role, team, history) => async (
   try {
     await axios.post("http://localhost:8081/api/team/", team);
     console.log("----------admin role- --------" + role);
+
     if (role == 3) {
       console.log("----------admin role- --------" + role);
       history.push(`/adminDashboard/${teamCode}/${userCode}`);
