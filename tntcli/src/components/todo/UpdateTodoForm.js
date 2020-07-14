@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { getUser } from "../../action/userAction";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
-import { createTodo } from "../../action/todoAction";
+import { updateTodo } from "../../action/todoAction";
 import BackToDashboardButton from "../user/BackToDashBoardButton";
 import Header from "../layout/Header";
 import classnames from "classnames";
@@ -22,7 +22,7 @@ class UpdateTodoForm extends Component {
       comment: "",
       userCode: "",
       teamCode: "",
-      todoIdentifier: "",
+      taskIdentifier: "",
       role: "",
       errors: {},
     };
@@ -46,9 +46,12 @@ class UpdateTodoForm extends Component {
       priority: this.state.priority,
       status: this.state.status,
       comment: this.state.comment,
+      userCode: this.state.userCode,
+      teamCode: this.state.teamCode,
+      taskIdentifier: this.state.taskIdentifier,
     };
-    window.confirm("Are you sure you want to Update this TODO?") &&
-      this.props.createTodo(
+    window.confirm("Are you sure you want to update this TODO?") &&
+      this.props.updateTodo(
         teamCode,
         this.state.userCode,
         userCode,
@@ -72,7 +75,7 @@ class UpdateTodoForm extends Component {
       comment,
       userCode,
       teamCode,
-      todoIdentifier,
+      taskIdentifier,
     } = nextProps.todo;
     this.setState({
       id,
@@ -85,7 +88,7 @@ class UpdateTodoForm extends Component {
       comment,
       userCode,
       teamCode,
-      todoIdentifier,
+      taskIdentifier,
     });
     const { role } = nextProps.user;
     this.setState({
@@ -110,7 +113,7 @@ class UpdateTodoForm extends Component {
           <div className="d-flex justify-content-center h-100">
             <div className="card">
               <div className="card-body">
-                <h5 className="display-5 text-center text-light">
+                <h5 className="display-6 text-center text-light">
                   Update TODO Form
                 </h5>
                 <hr />
@@ -193,19 +196,12 @@ class UpdateTodoForm extends Component {
                       data-toggle="tooltip"
                       title="Update due date here"
                       type="date"
-                      className={classnames("form-control ", {
-                        "is-invalid": errors.dueDateAndTime,
-                      })}
+                      className="form-control"
                       name="dueDateAndTime"
                       value={this.state.dueDateAndTime}
                       onChange={this.onChange}
                       required
                     />
-                    {errors.dueDateAndTime && (
-                      <div className="invalid-feedback">
-                        {errors.dueDateAndTime}
-                      </div>
-                    )}
                   </div>
                   <div className="input-group form-group">
                     <textarea
@@ -237,7 +233,7 @@ class UpdateTodoForm extends Component {
 }
 UpdateTodoForm.propTypes = {
   getUser: PropTypes.func.isRequired,
-  createTodo: PropTypes.func.isRequired,
+  updateTodo: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   getTodo: PropTypes.func.isRequired,
   todo: PropTypes.object.isRequired,
@@ -247,6 +243,8 @@ const mapStateToProps = (state) => ({
   errors: state.errors,
   todo: state.todos.todo,
 });
-export default connect(mapStateToProps, { getUser, createTodo, getTodo })(
-  UpdateTodoForm
-);
+export default connect(mapStateToProps, {
+  getUser,
+  updateTodo,
+  getTodo,
+})(UpdateTodoForm);

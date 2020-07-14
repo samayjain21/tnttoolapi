@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { getUser } from "./../../action/userAction";
+import { message } from "antd";
 
 class Header extends Component {
   constructor(props) {
@@ -18,53 +19,80 @@ class Header extends Component {
   componentWillReceiveProps(nextProps) {
     const { name } = nextProps.user;
     this.setState({ name });
-    console.log("----------" + this.state.uName);
   }
+  logOutMessage = () => {
+    const key = "updatable";
+    setTimeout(() => {
+      message.success({
+        content: "  Logged Out",
+        className: "custom-class",
+        style: {
+          position: "relative",
+          margin: "-48% 0 10% 43%",
+          width: "max-content",
+          color: "black",
+          background: "#ffffffd1",
+          borderRadius: "15px",
+          padding: "15px",
+          border: "solid #686464 2px",
+        },
+        top: 100,
+        key,
+        duration: 2,
+      });
+    }, 1000);
+  };
   render() {
     const { teamCode, userCode } = this.props;
-    console.log("----------" + userCode + "------------------ " + teamCode);
     return (
       <div id="main-header">
         <nav className=" navbar navbar-expand-sm  mb-4 mx-5">
-          <Link className="navbar-brand text-light mt-n1" to="">
+          <Link to="#" className="navbar-brand text-light mt-n1">
             Team & TODO Management Tool
           </Link>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler bg-dark mt-n2 mx-n5 px-3"
             type="button"
             data-toggle="collapse"
             data-target="#mobile-nav"
           >
-            <span className="navbar-toggler-icon" />
+            <i className="fa fa-bars text-light"></i>
           </button>
 
           <div className="collapse navbar-collapse" id="mobile-nav">
             <ul className="navbar-nav ml-auto">
-              <Link
-                className="nav-link dropdown-toggle text-light"
-                to="#"
-                id="navbarDropdownMenuLink"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i className="fa fa-user mt-n1" aria-hidden="true"></i>
-              </Link>
-              <div
-                className="dropdown-menu"
-                aria-labelledby="navbarDropdownMenuLink"
-              >
+              <li>
                 <Link
-                  className="dropdown-item"
-                  to={`/updateUserCredentials/${teamCode}/${userCode}`}
+                  className="nav-link dropdown-toggle text-light"
+                  id="navbarDropdownMenuLink"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
                 >
-                  Manage Credentials <i className="fa fa-cog fa-spin fa-1x"></i>
+                  <i className="fa fa-user mt-n1" aria-hidden="true"></i>
                 </Link>
-                <Link className="nav-link text-dark ml-3" to="/">
-                  Sign Out <i className="fas fa-sign-out-alt"></i>
-                </Link>
-              </div>
+
+                <div
+                  className="dropdown-menu"
+                  aria-labelledby="navbarDropdownMenuLink"
+                >
+                  <Link
+                    className="dropdown-item"
+                    to={`/updateUserCredentials/${teamCode}/${userCode}`}
+                  >
+                    Manage Credentials{" "}
+                    <i className="fa fa-cog fa-spin fa-1x"></i>
+                  </Link>
+                  <Link
+                    className="dropdown-item"
+                    onClick={this.logOutMessage.bind()}
+                    to="/"
+                  >
+                    Sign Out <i className="fas fa-sign-out-alt"></i>
+                  </Link>
+                </div>
+              </li>
             </ul>
           </div>
         </nav>
@@ -72,6 +100,7 @@ class Header extends Component {
     );
   }
 }
+
 Header.propTypes = {
   getUser: PropTypes.func.isRequired,
 };

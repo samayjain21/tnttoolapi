@@ -36,13 +36,18 @@ export default class FooterLandingPage extends Component {
               </p>
 
               <div className="social-bar ml-4">
-                <Link to="#" className="social-icon">
+                <a
+                  href="https://www.facebook.com/profile.php?id=100001528857127"
+                  className=" social-icon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="img/facebook.svg"
                     className="social-icons"
                     alt="facebook"
                   />
-                </Link>
+                </a>
 
                 <Link to="#" className="social-icon">
                   <img
@@ -52,21 +57,31 @@ export default class FooterLandingPage extends Component {
                   />
                 </Link>
 
-                <Link to="#" className="social-icon">
+                <a
+                  href="https://www.linkedin.com/in/samay-j-30956895/"
+                  className="social-icon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="img/linkedin.svg"
                     className="social-icons"
                     alt="linkedin"
                   />
-                </Link>
+                </a>
 
-                <Link to="#" className="social-icon">
+                <a
+                  href="mailto:prateek.dubey98@gmail.com;samayjain21@gmail.com?subject=Appreciated your work, want to connect with you&"
+                  className="social-icon"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <img
                     src="img/gmail.svg"
                     className="social-icons"
                     alt="gmail"
                   />
-                </Link>
+                </a>
               </div>
             </div>
           </div>
@@ -75,8 +90,8 @@ export default class FooterLandingPage extends Component {
         <div className="modal fade" id="developerInfo">
           <div className="modal-dialog">
             <div className="modal-content">
-              <div className="modal-header bg-dark">
-                <h5 className="modal-title text-light" id="contactModalLabel">
+              <div className="modal-header">
+                <h5 className="modal-title text-dark" id="contactModalLabel">
                   Developed By
                 </h5>
                 <button type="button" className="close" data-dismiss="modal">
@@ -104,8 +119,8 @@ export default class FooterLandingPage extends Component {
                   </h5>
                 </div>
               </div>
-              <div className="modal-footer bg-dark">
-                <p className="text-light mx-auto d-block">
+              <div className="modal-footer">
+                <p className="text-dark mx-auto d-block">
                   Thank you for Visiting...
                 </p>
               </div>

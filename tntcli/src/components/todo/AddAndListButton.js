@@ -5,27 +5,28 @@ class AddandListButton extends Component {
   render() {
     const { teamCode, userCode } = this.props;
     return (
-      <div className="mx-5 d-flex justify-content-end mt-n2">
+      <div className="mx-5 d-flex justify-content-end mt-1">
         <Link
           type="button"
-          className="rounded btn btn-success px-3 ml-3"
+          className="rounded btn btn-success px-3 ml-3 "
           to={`/addTodo/${teamCode}/${userCode}`}
         >
-          <i class="fa fa-plus-circle"></i> Add TODO
+          <i className="fa fa-plus-circle"></i> Add TODO
         </Link>
         <Link
           type="button"
           className="rounded btn btn-info px-3 ml-3"
           to={`/completedTodo/${teamCode}/${userCode}`}
         >
-          <i class="fa fa-check-circle"></i> Completed TODO
+          <i className="fa fa-check-circle"></i> Completed TODO{"   "}
+          <span className="badge bg-dark"></span>
         </Link>
         <Link
           type="button"
           className="rounded btn btn-warning px-3 ml-3"
           to={`/teamMember/${teamCode}/${userCode}`}
         >
-          <i class="fas fa-users"></i> List Members
+          <i className="fas fa-users"></i> List Members
         </Link>
       </div>
     );

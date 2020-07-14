@@ -4,7 +4,6 @@ import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import Header from "./../layout/Header";
-import UserItem from "./../user/UserItem";
 import UserItemAdmin from "./UserItemAdmin";
 
 class AllTeamMember extends Component {

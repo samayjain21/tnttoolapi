@@ -185,5 +185,4 @@ class TodoListMember extends Component {
     );
   }
 }
-
 export default TodoListMember;

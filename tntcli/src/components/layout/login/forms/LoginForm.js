@@ -4,7 +4,6 @@ import { connect } from "react-redux";
 import HeaderLandingPage from "../../HeaderLandingPage";
 import { login } from "./../../../../action/userAction";
 import classnames from "classnames";
-import { Link } from "react-router-dom";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -13,6 +12,7 @@ class LoginForm extends Component {
       username: "",
       password: "",
       userCode: "",
+      currentPasswordHidden: false,
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -34,8 +34,15 @@ class LoginForm extends Component {
       this.setState({ errors: nextProps.errors });
     }
   }
+  toggleShowCurrentPassword = () => {
+    const { currentPasswordHidden } = this.state;
+    this.setState({
+      currentPasswordHidden: !currentPasswordHidden,
+    });
+  };
   render() {
     const { errors } = this.state;
+    const { currentPasswordHidden } = this.state;
     return (
       <div className="login-form">
         <div>
@@ -62,7 +69,7 @@ class LoginForm extends Component {
                 <form onSubmit={this.onSubmit}>
                   <div className="input-group form-group">
                     <div className="input-group-prepend">
-                      <span className="input-group-text">
+                      <span className="input-group-text btn">
                         <i className="fas fa-user"></i>
                       </span>
                     </div>
@@ -79,32 +86,43 @@ class LoginForm extends Component {
                   </div>
                   <div className="input-group form-group">
                     <div className="input-group-prepend">
-                      <span className="input-group-text">
+                      <span className="input-group-text btn">
                         <i className="fas fa-key"></i>
                       </span>
                     </div>
-                    <input
-                      type="password"
-                      name="password"
-                      className={classnames("form-control", {
-                        "is-invalid": errors.userCode,
-                      })}
-                      placeholder="password"
-                      value={this.state.password}
-                      onChange={this.onChange}
-                    />
-                    {errors.userCode && (
-                      <div className="invalid-feedback">{errors.userCode}</div>
-                    )}
+                    <div className="login-pass-field">
+                      <input
+                        type={currentPasswordHidden ? "text" : "password"}
+                        name="password"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.userCode,
+                        })}
+                        placeholder="password"
+                        value={this.state.password}
+                        onChange={this.onChange}
+                      />
+                      {errors.userCode && (
+                        <div className="invalid-feedback">
+                          {errors.userCode}
+                        </div>
+                      )}
+                    </div>
+                    <div className="login-show-pass">
+                      <span
+                        type="button"
+                        onClick={this.toggleShowCurrentPassword}
+                      >
+                        <i
+                          className={`fa ${
+                            currentPasswordHidden ? "fa-eye-slash" : "fa-eye"
+                          } login-show-pass`}
+                        ></i>
+                      </span>
+                    </div>
                   </div>
+
                   <input type="submit" className="btn float-right login_btn" />
                 </form>
-              </div>
-              <div className="card-footer">
-                <div className="d-flex justify-content-center links">
-                  Don't have an account?
-                  <Link to="/registrationForm">Sign Up</Link>
-                </div>
               </div>
             </div>
           </div>

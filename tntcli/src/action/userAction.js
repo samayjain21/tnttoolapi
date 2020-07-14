@@ -7,25 +7,46 @@ import {
   DELETE_USER,
   LIST_ALL_USERS,
 } from "./type";
+import { message } from "antd";
 
 export const login = (user, history) => async (dispatch) => {
   try {
-    console.log("==>>", user);
     const res = await axios.post("http://localhost:8081/api/user/login", user);
-    console.log("response in react", res);
+    const loggedInName = res.data.name;
+    const loginMessage = () => {
+      const key = "updatable";
+      message.loading({
+        content: "  Login...",
+        className: "custom-class",
+        top: 100,
+        key,
+      });
+      setTimeout(() => {
+        message.success({
+          content: "  Welcome, " + loggedInName,
+          className: "custom-class",
 
+          top: 100,
+          key,
+          duration: 3,
+        });
+      }, 1000);
+    };
     if (res.data.role === 3) {
       history.push(`/adminDashboard/${res.data.teamCode}/${res.data.userCode}`);
+      loginMessage();
     }
     if (res.data.role === 2) {
       history.push(
-        `/teamLeadDashboard/${res.data.teamCode}/${res.data.userCode}`
+        `/teamLeadDashboard/${res.data.teamCode}/${res.data.userCode}/`
       );
+      loginMessage();
     }
     if (res.data.role === 1) {
       history.push(
         `/teamMemberDashboard/${res.data.teamCode}/${res.data.userCode}`
       );
+      loginMessage();
     }
     dispatch({
       type: USER_LOGIN,
@@ -38,7 +59,41 @@ export const login = (user, history) => async (dispatch) => {
     });
   }
 };
+export const createUser = (teamCode, userCode, user, history) => async (
+  dispatch
+) => {
+  try {
+    await axios.post(`http://localhost:8081/api/user/${teamCode}/`, user);
+    const userInTeam = user.name;
+    const openMessage = () => {
+      const key = "updatable";
+      message.loading({
+        content: "  Adding...",
+        className: "custom-class",
+        top: 100,
+        key,
+      });
+      setTimeout(() => {
+        message.success({
+          content: "  Member ' " + userInTeam + " ' added succesfully",
+          className: "custom-class",
 
+          top: 100,
+          key,
+          duration: 2,
+        });
+      }, 1000);
+    };
+
+    history.push(`/teamMember/${teamCode}/${userCode}`);
+    openMessage();
+  } catch (error) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data,
+    });
+  }
+};
 export const getUser = (team_id, user_id, history) => async (dispatch) => {
   const res = await axios.get(
     `http://localhost:8081/api/user/${team_id}/${user_id}`
@@ -49,17 +104,35 @@ export const getUser = (team_id, user_id, history) => async (dispatch) => {
   });
 };
 
-export const createUser = (teamCode, userCode, user, history) => async (
+export const updateUser = (teamCode, userCode, user, history) => async (
   dispatch
 ) => {
   try {
-    await axios.post(`http://localhost:8081/api/user/${teamCode}/`, user);
-    console.log("user role team lead -" + user.role);
-    if (user.role == 2) {
-      // history.push(`/adminDashboard/S01-1/${userCode}`);
-    } else {
-      history.push(`/teamMember/${teamCode}/${userCode}`);
-    }
+    await axios.patch(
+      `http://localhost:8081/api/user/${teamCode}/${user.userCode}`,
+      user
+    );
+    const userInTeam = user.name;
+    const updateMessage = () => {
+      const key = "updatable";
+      message.loading({
+        content: "  Updating...",
+        className: "custom-class",
+        top: 100,
+        key,
+      });
+      setTimeout(() => {
+        message.success({
+          content: "  Member ' " + userInTeam + " ' updated succesfully",
+          className: "custom-class",
+          top: 100,
+          key,
+          duration: 2,
+        });
+      }, 1000);
+    };
+    history.push(`/teamMember/${teamCode}/${userCode}`);
+    updateMessage();
   } catch (error) {
     dispatch({
       type: GET_ERRORS,
@@ -70,12 +143,22 @@ export const createUser = (teamCode, userCode, user, history) => async (
 
 export const getUsers = (team_id, history) => async (dispatch) => {
   const res = await axios.get(`http://localhost:8081/api/user/${team_id}`);
-  console.log("response in react", res);
+
   dispatch({
     type: GET_USERS,
     payload: res.data,
   });
 };
+
+export const getUsersList = (history) => async (dispatch) => {
+  const res = await axios.get(`http://localhost:8081/api/user/all`);
+
+  dispatch({
+    type: LIST_ALL_USERS,
+    payload: res.data,
+  });
+};
+
 export const deleteUser = (teamCode, userCode) => async (dispatch) => {
   await axios.delete(`http://localhost:8081/api/user/${teamCode}/${userCode}`);
   dispatch({
@@ -83,24 +166,46 @@ export const deleteUser = (teamCode, userCode) => async (dispatch) => {
     payload: userCode,
   });
 };
-
-export const updateUser = (teamCode, userCode, user, history) => async (
-  dispatch
-) => {
+export const updateUserCredential = (
+  teamCode,
+  userCode,
+  user,
+  history
+) => async (dispatch) => {
   try {
-    const res = await axios.patch(
+    await axios.patch(
       `http://localhost:8081/api/user/${teamCode}/${userCode}`,
       user
     );
-    console.log("user role---------" + user.role);
+    const updateMessage = () => {
+      const key = "updatable";
+      message.loading({
+        content: "  Updating...",
+        className: "custom-class",
+        top: 100,
+        key,
+      });
+      setTimeout(() => {
+        message.success({
+          content: "  Credentials updated succesfully",
+          className: "custom-class",
+          top: 100,
+          key,
+          duration: 2,
+        });
+      }, 1000);
+    };
     if (user.role === 3) {
       history.push(`/adminDashboard/${teamCode}/${userCode}/`);
+      updateMessage();
     }
     if (user.role === 2) {
       history.push(`/teamLeadDashboard/${teamCode}/${userCode}/`);
+      updateMessage();
     }
     if (user.role === 1) {
       history.push(`/teamMemberDashboard/${teamCode}/${userCode}`);
+      updateMessage();
     }
   } catch (error) {
     dispatch({
@@ -119,11 +224,29 @@ export const createUserViaAdmin = (
 ) => async (dispatch) => {
   try {
     await axios.post(`http://localhost:8081/api/user/${teamCode}/`, user);
-    console.log("user role team lead -" + user.role);
-
-    if (userId == "") {
+    const userInTeam = user.name;
+    const openMessage = () => {
+      const key = "updatable";
+      message.loading({
+        content: "  Adding...",
+        className: "custom-class",
+        top: 100,
+        key,
+      });
+      setTimeout(() => {
+        message.success({
+          content: "  Member ' " + userInTeam + " ' added succesfully",
+          className: "custom-class",
+          top: 100,
+          key,
+          duration: 2,
+        });
+      }, 1000);
+    };
+    if (userId === "") {
     } else {
       history.push(`/listTeamMember/${teamId}/${userId}/${teamCode}`);
+      openMessage();
     }
   } catch (error) {
     dispatch({
@@ -141,24 +264,35 @@ export const updateUserViaAdmin = (
   history
 ) => async (dispatch) => {
   try {
-    const res = await axios.patch(
+    await axios.patch(
       `http://localhost:8081/api/user/${teamCode}/${user.userCode}`,
       user
     );
-    console.log("user role---------" + user.role);
+    const userInTeam = user.name;
+    const updateMessage = () => {
+      const key = "updatable";
+      message.loading({
+        content: "  Updating...",
+        className: "custom-class",
+        top: 100,
+        key,
+      });
+      setTimeout(() => {
+        message.success({
+          content: "  Member ' " + userInTeam + " ' updated succesfully",
+          className: "custom-class",
+          top: 100,
+          key,
+          duration: 2,
+        });
+      }, 1000);
+    };
     history.push(`/listTeamMember/${teamId}/${userId}/${teamCode}`);
+    updateMessage();
   } catch (error) {
     dispatch({
       type: GET_ERRORS,
       payload: error.response.data,
     });
   }
-};
-export const getUsersList = (history) => async (dispatch) => {
-  const res = await axios.get(`http://localhost:8081/api/user/all`);
-  console.log("response in react", res);
-  dispatch({
-    type: LIST_ALL_USERS,
-    payload: res.data,
-  });
 };

@@ -3,10 +3,25 @@ import { Link } from "react-router-dom";
 import { deleteUser } from "../../action/userAction";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
+import { message } from "antd";
 class UserItemAdmin extends Component {
   onDeleteClick = (teamCode, userCode) => {
     window.confirm("Are you sure you want to remove this member?") &&
-      this.props.deleteUser(teamCode, userCode);
+      this.props.deleteUser(teamCode, userCode) &&
+      this.openMessage();
+  };
+  openMessage = () => {
+    const { user } = this.props;
+    const key = "updatable";
+    setTimeout(() => {
+      message.success({
+        content: "  Member ' " + user.name + " ' deleted succesfully",
+        className: "custom-class",
+        top: 100,
+        key,
+        duration: 2,
+      });
+    }, 1000);
   };
   render() {
     const { user } = this.props;
@@ -46,30 +61,41 @@ class UserItemAdmin extends Component {
                 User Id : <span>{user.userCode}</span>
               </small>
             </div>
-            <div className="col-lg-4 col-md-6 col-2 d-flex justify-content-end mt-n2 mb-3">
-              <Link
-                data-toggle="tooltip"
-                title="Edit Team Member"
-                type="button"
-                className="rounded btn btn-warning px-3 py-2 mt-3 mr-2"
-                to={`/updateTeamMemberAdmin/${teamCode}/${userCode}/${user.teamCode}/${user.userCode}`}
-              >
-                <i className="fas fa-user-edit"></i>
-              </Link>
-              <div
-                data-toggle="tooltip"
-                title="Delete Team Member"
-                onClick={this.onDeleteClick.bind(
-                  this,
-                  user.teamCode,
-                  user.userCode
-                )}
-                type="button"
-                className="rounded btn btn-danger px-3 py-2  ml-2 mt-3 mr-2"
-              >
-                <i class="fas fa-trash-alt"></i>
-              </div>
-            </div>
+
+            {(() => {
+              switch (user.userCode) {
+                case "A01-1":
+                  return;
+
+                default:
+                  return (
+                    <div className="col-lg-4 col-md-6 col-2 d-flex justify-content-end mt-n2 mb-3">
+                      <Link
+                        data-toggle="tooltip"
+                        title="Edit Team Member"
+                        type="button"
+                        className="rounded btn btn-warning px-3 py-2 mt-3 mr-2"
+                        to={`/updateTeamMemberAdmin/${teamCode}/${userCode}/${user.teamCode}/${user.userCode}`}
+                      >
+                        <i className="fas fa-user-edit"></i>
+                      </Link>
+                      <div
+                        data-toggle="tooltip"
+                        title="Delete Team Member"
+                        onClick={this.onDeleteClick.bind(
+                          this,
+                          user.teamCode,
+                          user.userCode
+                        )}
+                        type="button"
+                        className="rounded btn btn-danger px-3 py-2  ml-2 mt-3 mr-2"
+                      >
+                        <i class="fas fa-trash-alt"></i>
+                      </div>
+                    </div>
+                  );
+              }
+            })()}
           </div>
         </div>
       </div>

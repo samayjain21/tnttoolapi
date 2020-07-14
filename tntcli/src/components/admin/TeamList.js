@@ -3,13 +3,27 @@ import { Link } from "react-router-dom";
 import { deleteTeam } from "./../../action/adminAction";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
+import { message } from "antd";
 
 class TeamList extends Component {
   onDeleteClick = (teamId) => {
     window.confirm("Are you sure you want to delete the Team?") &&
-      this.props.deleteTeam(teamId);
+      this.props.deleteTeam(teamId) &&
+      this.openMessage();
   };
-
+  openMessage = () => {
+    const { team } = this.props;
+    const key = "updatable";
+    setTimeout(() => {
+      message.success({
+        content: "  Team ' " + team.name + " ' deleted succesfully",
+        className: "custom-class",
+        top: 100,
+        key,
+        duration: 2,
+      });
+    }, 1000);
+  };
   render() {
     const { team } = this.props;
     const { teamCode, userCode } = this.props;

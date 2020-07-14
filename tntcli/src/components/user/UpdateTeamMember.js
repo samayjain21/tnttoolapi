@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { getUser } from "../../action/userAction";
-import { createUser } from "./../../action/userAction";
+import { updateUser } from "./../../action/userAction";
 import BackToMemberListboardButton from "./BackToMemberListboardButton";
 import Header from "./../layout/Header";
 import classnames from "classnames";
@@ -17,6 +17,9 @@ class UpdateTeamMember extends Component {
       password: "password",
       role: "1",
       userCode: "",
+      teamCode: "",
+      teamId: "",
+      taskSequence: "",
       errors: {},
     };
     this.onChange = this.onChange.bind(this);
@@ -26,16 +29,27 @@ class UpdateTeamMember extends Component {
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
-    const { id, name, username, role, userCode } = nextProps.user;
+    const {
+      id,
+      name,
+      username,
+      role,
+      userCode,
+      teamId,
+      teamCode,
+      taskSequence,
+    } = nextProps.user;
     this.setState({
       id,
       name,
       username,
       role,
       userCode,
+      teamId,
+      teamCode,
+      taskSequence,
     });
   }
-
   componentDidMount() {
     const { teamCode, userId } = this.props.match.params;
     this.props.getUser(teamCode, userId, this.props.history);
@@ -52,17 +66,19 @@ class UpdateTeamMember extends Component {
       username: this.state.username,
       password: this.state.password,
       role: this.state.role,
+      teamId: this.state.teamId,
+      userCode: this.state.userCode,
+      teamCode: this.state.teamCode,
+      taskSequence: this.state.taskSequence,
     };
-
     window.confirm(
-      "Are you sure you want to Update the details of this member ?"
+      "Are you sure you want to update the details of this member?"
     ) &&
-      this.props.createUser(teamCode, userCode, updateUser, this.props.history);
+      this.props.updateUser(teamCode, userCode, updateUser, this.props.history);
   }
   render() {
     const { errors } = this.state;
     const { teamCode, userCode } = this.props.match.params;
-    console.log("---------userCode  update form- " + userCode);
     return (
       <div className="add-user">
         <Header />
@@ -71,7 +87,7 @@ class UpdateTeamMember extends Component {
           <div className="d-flex justify-content-center h-100">
             <div className="card">
               <div className="card-body">
-                <h5 className="display-5 text-center text-light">
+                <h5 className="display-6 text-center text-light">
                   Update Team Member
                 </h5>
                 <hr />
@@ -88,6 +104,7 @@ class UpdateTeamMember extends Component {
                       name="name"
                       value={this.state.name}
                       onChange={this.onChange}
+                      required
                     />
                     {errors.name && (
                       <div className="invalid-feedback">{errors.name}</div>
@@ -105,6 +122,7 @@ class UpdateTeamMember extends Component {
                       name="username"
                       value={this.state.username}
                       onChange={this.onChange}
+                      required
                     />
                     {errors.username && (
                       <div className="invalid-feedback">{errors.username}</div>
@@ -121,16 +139,17 @@ class UpdateTeamMember extends Component {
     );
   }
 }
+
 UpdateTeamMember.propTypes = {
   user: PropTypes.object.isRequired,
   getUser: PropTypes.func.isRequired,
-  createUser: PropTypes.func.isRequired,
+  updateUser: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
   errors: state.errors,
   user: state.users.user,
 });
-export default connect(mapStateToProps, { getUser, createUser })(
+export default connect(mapStateToProps, { getUser, updateUser })(
   UpdateTeamMember
 );

@@ -1,0 +1,105 @@
+import React, { Component } from "react";
+import { getTodos } from "./../../action/todoAction";
+import { PropTypes } from "prop-types";
+import { connect } from "react-redux";
+import { ProgressBar } from "react-bootstrap";
+
+var todoCounter = 0;
+var totalCount = 0;
+var inProgressCounter = 0;
+var completedCounter = 0;
+class TodoProgessChart extends Component {
+  componentDidMount() {
+    const { teamCode } = this.props.teamCode;
+    this.props.getTodos(teamCode, this.props.history);
+  }
+
+  componentWillUnmount() {
+    todoCounter = 0;
+    totalCount = 0;
+    inProgressCounter = 0;
+    completedCounter = 0;
+  }
+  render() {
+    const { todos } = this.props.todos;
+
+    return (
+      <div>
+        <div>
+          {todos.map((todo) =>
+            (() => {
+              totalCount++;
+              console.log("----------------totalCount -" + totalCount);
+              switch (todo.status) {
+                case "Completed":
+                  console.log(
+                    "----------------completedCounter -" + completedCounter
+                  );
+                  completedCounter++;
+                  return;
+                case "TODO":
+                  console.log("----------------todoCounter -" + todoCounter);
+                  todoCounter++;
+                  return;
+                case "In-Progress":
+                  console.log(
+                    "----------------In-Progress -" + inProgressCounter
+                  );
+                  inProgressCounter++;
+                  return;
+                default:
+                  return;
+              }
+            })()
+          )}
+        </div>
+        <div className="todo-progress-bar">
+          <ProgressBar>
+            <ProgressBar
+              animated
+              variant="success"
+              now={(completedCounter / totalCount) * 100}
+              key={1}
+              data-toggle="tooltip"
+              title={`Completed ${(
+                (completedCounter / totalCount) *
+                100
+              ).toFixed(2)}%`}
+              label={`${((completedCounter / totalCount) * 100).toFixed(2)}%`}
+            />
+            <ProgressBar
+              animated
+              variant="warning"
+              now={(inProgressCounter / totalCount) * 100}
+              key={2}
+              data-toggle="tooltip"
+              title={`In-Progress ${(
+                (inProgressCounter / totalCount) *
+                100
+              ).toFixed(2)}%`}
+              label={`${((inProgressCounter / totalCount) * 100).toFixed(2)}%`}
+            />
+            <ProgressBar
+              animated
+              variant="danger"
+              now={(todoCounter / totalCount) * 100}
+              key={3}
+              data-toggle="tooltip"
+              title={`Todo ${((todoCounter / totalCount) * 100).toFixed(2)}%`}
+              label={`${((todoCounter / totalCount) * 100).toFixed(2)}%`}
+            />
+          </ProgressBar>
+        </div>
+      </div>
+    );
+  }
+}
+
+TodoProgessChart.propTypes = {
+  getTodos: PropTypes.func.isRequired,
+};
+const mapStateToProps = (state) => ({
+  todos: state.todos,
+});
+
+export default connect(mapStateToProps, { getTodos })(TodoProgessChart);

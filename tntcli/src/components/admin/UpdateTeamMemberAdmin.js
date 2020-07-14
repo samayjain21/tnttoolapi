@@ -101,7 +101,7 @@ class UpdateTeamMemberAdmin extends Component {
           <div className="d-flex justify-content-center h-100">
             <div className="card">
               <div className="card-body">
-                <h5 className="display-5 text-center text-light">
+                <h5 className="display-6 text-center text-light">
                   Update Team Member
                 </h5>
                 <hr />
@@ -155,7 +155,7 @@ class UpdateTeamMemberAdmin extends Component {
                               onChange={this.onChange}
                               required
                             >
-                              <option value={0}>Select role</option>
+                              <option value="">Select role</option>
                               <option value={3}>Admin</option>
                             </select>
                           );
@@ -171,7 +171,7 @@ class UpdateTeamMemberAdmin extends Component {
                               onChange={this.onChange}
                               required
                             >
-                              <option value={0}>Select role</option>
+                              <option value="">Select role</option>
                               <option value={1}>Team Member</option>
                               <option value={2}>Team Lead</option>
                             </select>

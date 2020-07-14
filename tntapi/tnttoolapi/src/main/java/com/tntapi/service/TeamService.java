@@ -35,6 +35,7 @@ public class TeamService {
 		return team;
 
 	}
+	
 	public void deleteTeam(String teamCode) {
 
 		// getting the team form team code
@@ -45,5 +46,11 @@ public class TeamService {
 
 		// deleting the team from repository
 		teamRepository.delete(team);
+	}
+	
+	public Team updateTeam(String teamCode, Team updateTeam) {
+		Team team = findTeam(teamCode);
+		team = updateTeam;
+		return teamRepository.save(team);
 	}
 }

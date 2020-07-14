@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User {
 	
 	
-	public User() {
+	public User() { 
 		super();
 	}
 	@Id

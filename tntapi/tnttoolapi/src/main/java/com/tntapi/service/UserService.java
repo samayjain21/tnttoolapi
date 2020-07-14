@@ -3,6 +3,7 @@ package com.tntapi.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.tntapi.domain.Team;
@@ -52,7 +53,9 @@ public class UserService {
 			return userRepository.save(user);
 		} catch (NullPointerException ex) {
 			throw new TeamNotFoundException("team does not exist");
-		} catch (Exception e) {
+		} catch (UserNotFoundException e) {
+			throw new UsernameException("user not found");
+		}catch (Exception e) {
 			throw new UsernameException("username already exist");
 		}
 
@@ -90,7 +93,7 @@ public class UserService {
 	}
 
 	public User updateByUserCode(User updateUser, String team_id, String user_id) {
-		// find the user
+	try {	// find the user
 		User user = findUserbyUcode(team_id, user_id);
 		Team team = teamRepository.findByTeamCode(team_id);
 		//if role is changing from team lead to team member
@@ -115,7 +118,10 @@ public class UserService {
 			}
 		}
 		// save user
-		return userRepository.save(user);
+		return userRepository.save(user);}
+	catch (Exception e) {
+		throw new UsernameException("username already exisit");
+	}
 	}
 
 	public void deleteUser(String team_id, String user_id) {

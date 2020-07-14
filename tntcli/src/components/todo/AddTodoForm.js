@@ -58,8 +58,7 @@ class AddTodoForm extends Component {
       status: this.state.status,
       comment: this.state.comment,
     };
-    console.log("------" + newTodo);
-    window.confirm("Are you sure you want to Add this TODO?") &&
+    window.confirm("Are you sure you want to add this TODO?") &&
       this.props.createTodo(
         teamCode,
         this.state.userCode,
@@ -84,7 +83,7 @@ class AddTodoForm extends Component {
           <div className="d-flex justify-content-center h-100">
             <div className="card">
               <div className="card-body">
-                <h5 className="display-5 text-center text-light">
+                <h5 className="display-6 text-center text-light">
                   Create TODO Form
                 </h5>
                 <hr />
@@ -219,15 +218,15 @@ class AddTodoForm extends Component {
 AddTodoForm.propTypes = {
   user: PropTypes.object.isRequired,
   getUsers: PropTypes.func.isRequired,
+  getUser: PropTypes.func.isRequired,
   createTodo: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  getUser: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
   users: state.users,
-  errors: state.errors,
   user: state.users.user,
+  errors: state.errors,
 });
-export default connect(mapStateToProps, { getUser, getUsers, createTodo })(
+export default connect(mapStateToProps, { getUsers, createTodo, getUser })(
   AddTodoForm
 );

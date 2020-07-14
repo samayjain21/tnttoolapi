@@ -8,7 +8,6 @@ import store from "./store";
 import TeamLeadDashboard from "./components/TeamLeadDashboard";
 import LoginForm from "./components/layout/login/forms/LoginForm";
 import TeamMemberDashboard from "./components/TeamMemberDashboard";
-import RegistrationForm from "./components/layout/login/forms/RegistrationForm";
 import ListTeamMember from "./components/user/ListTeamMember";
 import AddTodoForm from "./components/todo/AddTodoForm";
 import UpdateTodoForm from "./components/todo/UpdateTodoForm";
@@ -61,7 +60,6 @@ function App() {
           path="/teamMemberDashboard/:teamCode/:userCode"
           component={TeamMemberDashboard}
         />
-        <Route exact path="/registrationForm" component={RegistrationForm} />
         <Route
           exact
           path="/teamMember/:teamCode/:userCode"

@@ -42,7 +42,7 @@ class SignUp extends Component {
     }
   }
 
-  componentWillUnmount() {
+  onClickCreateUser = () => {
     const adminUser = {
       name: this.state.name,
       username: this.state.username,
@@ -57,18 +57,68 @@ class SignUp extends Component {
       this.state.teamId,
       this.props.history
     );
-  }
+  };
+
   render() {
     return (
       <div>
         <li className="nav-item">
           <Link
+            data-toggle="modal"
+            data-target="#myModal"
             className="nav-link text-light "
-            to="/login"
             onClick={this.onRegisterClick.bind()}
           >
             Register Project
           </Link>
+          <div
+            data-backdrop="static"
+            data-keyboard="false"
+            className="modal fade"
+            id="myModal"
+            aria-labelledby="exampleModalLabel"
+          >
+            <div
+              className="modal-dialog modal-dialog-centered"
+              data-dismiss="modal"
+            >
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="exampleModalLabel">
+                    Admin Registered Successfully , Login Credentials !
+                  </h5>
+                </div>
+                <div className="modal-body">
+                  <span className="text-secondary font-italic">Name : </span>
+                  Admin
+                  <br />
+                  <span className="text-secondary font-italic">
+                    Username :{" "}
+                  </span>
+                  admin
+                  <br />
+                  <span className="text-secondary font-italic">
+                    Password :{" "}
+                  </span>
+                  admin
+                  <p className="text-success font-weight-bold">
+                    After clicking on 'OK', click on Sign In and enter above
+                    credentials.
+                  </p>
+                </div>
+                <div className="modal-footer">
+                  <Link
+                    to="/login"
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={this.onClickCreateUser.bind()}
+                  >
+                    Ok
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
       </div>
     );

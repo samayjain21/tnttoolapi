@@ -11,11 +11,9 @@ class TeamMemberDashboard extends Component {
     const { teamCode, userCode } = this.props.match.params;
     this.props.getUserTodos(teamCode, userCode, this.props.history);
   }
-
   render() {
     const { todos } = this.props.todos;
     const { teamCode, userCode } = this.props.match.params;
-
     return (
       <div className="teamMemberDash ">
         <Header teamCode={teamCode} userCode={userCode} />
@@ -25,7 +23,7 @@ class TeamMemberDashboard extends Component {
             className="rounded btn btn-warning px-3 ml-3"
             to={`/listPeers/${teamCode}/${userCode}`}
           >
-            <i class="fas fa-users"></i> List Members
+            <i className="fas fa-users"></i> List Members
           </Link>
         </div>
         <div className="todo-list-member ml-5">

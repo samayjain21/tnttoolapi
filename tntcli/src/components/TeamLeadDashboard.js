@@ -5,23 +5,22 @@ import TodoList from "./todo/TodoList";
 import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { getTodos } from "./../action/todoAction";
+import TodoProgessChart from "./todo/TodoProgessChart";
 
 class TeamLeadDashboard extends Component {
   componentDidMount() {
     const { teamCode } = this.props.match.params;
     this.props.getTodos(teamCode, this.props.history);
   }
-
   render() {
     const { todos } = this.props.todos;
     const { teamCode, userCode } = this.props.match.params;
-
     return (
-      <div className="teamLeadDash ">
+      <div className="teamLeadDash">
         <Header teamCode={teamCode} userCode={userCode} />
+        <TodoProgessChart teamCode={teamCode} />
         <AddAndListButton teamCode={teamCode} userCode={userCode} />
-
-        <div className="todo-list ml-5 ">
+        <div className="todo-list ml-5">
           {todos.map((todo) => (
             <TodoList key={todo.id} todo={todo} userCode={userCode} />
           ))}
@@ -30,7 +29,6 @@ class TeamLeadDashboard extends Component {
     );
   }
 }
-
 TeamLeadDashboard.propTypes = {
   // todo: PropTypes.object.isRequired,
   getTodos: PropTypes.func.isRequired,
