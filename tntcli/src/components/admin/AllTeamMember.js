@@ -30,7 +30,7 @@ class AllTeamMember extends Component {
             className="add-member-btn rounded  btn btn-success px-3 mt-n4 mr-5"
             to={`/addMember/${teamId}/${userCode}/${teamCode}`}
           >
-            <i class="fas fa-user-plus"></i> Add Member
+            <i className="fas fa-user-plus"></i> Add Member
           </Link>
         </div>
         <p>
@@ -51,7 +51,6 @@ class AllTeamMember extends Component {
 }
 
 AllTeamMember.propTypes = {
-  user: PropTypes.object.isRequired,
   getUsers: PropTypes.func.isRequired,
 };
 

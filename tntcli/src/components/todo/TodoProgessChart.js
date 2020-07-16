@@ -10,7 +10,7 @@ var inProgressCounter = 0;
 var completedCounter = 0;
 class TodoProgessChart extends Component {
   componentDidMount() {
-    const { teamCode } = this.props.teamCode;
+    const { teamCode } = this.props;
     this.props.getTodos(teamCode, this.props.history);
   }
 
@@ -29,22 +29,14 @@ class TodoProgessChart extends Component {
           {todos.map((todo) =>
             (() => {
               totalCount++;
-              console.log("----------------totalCount -" + totalCount);
               switch (todo.status) {
                 case "Completed":
-                  console.log(
-                    "----------------completedCounter -" + completedCounter
-                  );
                   completedCounter++;
                   return;
                 case "TODO":
-                  console.log("----------------todoCounter -" + todoCounter);
                   todoCounter++;
                   return;
                 case "In-Progress":
-                  console.log(
-                    "----------------In-Progress -" + inProgressCounter
-                  );
                   inProgressCounter++;
                   return;
                 default:

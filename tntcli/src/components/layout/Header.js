@@ -69,6 +69,7 @@ class Header extends Component {
                   data-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
+                  to=""
                 >
                   <i className="fa fa-user mt-n1" aria-hidden="true"></i>
                 </Link>

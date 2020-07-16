@@ -253,6 +253,78 @@ body {
   background-color: black;
 }
 
+/**Team Progress Dashboard**/
+
+.team-progress-dashboard {
+  background: #000000c2;
+  min-height: 730px;
+}
+
+.CircularProgressbar {
+  width: 30% !important;
+  margin: 0% 5% 0% 5%;
+  vertical-align: middle !important;
+  float: left;
+  padding: 10px;
+  box-shadow: 3px 3px 3px 3px rgba(18, 19, 21, 0.45),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  border-radius: 15px;
+  background: #ffffffeb;
+  max-height: 300px;
+}
+.CircularProgressbar .CircularProgressbar-path {
+  stroke: #48b460 !important;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.5s ease 0s;
+}
+.CircularProgressbar .CircularProgressbar-text {
+  fill: #48b460 !important;
+  font-size: 20px;
+  text-anchor: middle;
+}
+
+.team-progress-bar {
+  padding: 16px 50px 16px 50px;
+  box-shadow: 3px 3px 3px 3px rgba(18, 19, 21, 0.45),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15);
+  border-radius: 15px;
+  margin: 0% 5% 4% 40%;
+  background-color: #ffffffeb;
+  max-width: 55%;
+}
+.team-progress-bar .progress {
+  height: 35px;
+  background-color: rgba(214, 214, 214);
+}
+
+.card-section {
+  margin: 4% 5% 5% 5%;
+  border-radius: 15px !important;
+  background-color: #ffffffeb !important;
+  box-shadow: 3px 3px 3px 3px rgba(18, 19, 21, 0.45),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15) !important;
+}
+
+.card-section .total-todo-card {
+  margin: 3.5% 4.7% 0% 4.7%;
+}
+/* .card-section .card-stats {
+  height: 250px;
+} */
+
+.completed-card {
+  margin: -17.3% 0% 0% 5%;
+  background-color: #ffffffeb !important;
+  max-width: 420px;
+  box-shadow: 3px 3px 3px 3px rgba(18, 19, 21, 0.45),
+    0 1px 3px 1px rgba(60, 64, 67, 0.15) !important;
+  border-radius: 15px !important;
+}
+
+.card .count {
+  margin: 3% 40% 2% 40%;
+}
+
 /********************************************TEAM-LEAD DASHBOARD********************************************/
 
 /**Add Todo Form**/
@@ -513,6 +585,9 @@ body {
   transition-delay: 0.2s;
 }
 .card .fa-trash {
+  transition-delay: 0.6s;
+}
+.card .fa-chart-line {
   transition-delay: 0.4s;
 }
 

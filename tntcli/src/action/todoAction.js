@@ -36,14 +36,16 @@ export const createTodo = (
           className: "custom-class",
           top: 100,
           key,
-          duration: 82,
+          duration: 2,
         });
-      }, 1000);
+      }, 500);
     };
     if (userRole === 2) {
       history.push(`/teamLeadDashboard/${teamCode}/${userCode}`);
       openMessage();
-      window.location.reload(false);
+      setTimeout(() => {
+        window.location.reload(false);
+      }, 1000);
     }
   } catch (error) {
     dispatch({
@@ -83,12 +85,14 @@ export const updateTodo = (
           key,
           duration: 2,
         });
-      }, 1000);
+      }, 500);
     };
     if (userRole === 2) {
       history.push(`/teamLeadDashboard/${teamCode}/${userCode}`);
       updateMessage();
-      window.location.reload(false);
+      setTimeout(() => {
+        window.location.reload(false);
+      }, 1000);
     }
     if (userRole === 1) {
       history.push(`/teamMemberDashboard/${teamCode}/${userCode}`);
@@ -144,9 +148,20 @@ export const deleteTodo = (userCode, taskId) => async (dispatch) => {
       top: 100,
       key,
     });
+    setTimeout(() => {
+      message.success({
+        content: "  TODO  deleted succesfully",
+        className: "custom-class",
+        top: 100,
+        key,
+        duration: 2,
+      });
+    }, 500);
   };
   updateMessage();
-  window.location.reload(false);
+  setTimeout(() => {
+    window.location.reload(false);
+  }, 1000);
   dispatch({
     type: DELETE_TODO,
     payload: taskId,
