@@ -90,7 +90,6 @@ class TeamList extends Component {
                     data-toggle="tooltip"
                     title="Delete Team "
                     onClick={this.onDeleteClick.bind(this, team.teamCode)}
-                    to=""
                   >
                     <i className="fa fa-trash icons"></i>
                   </Link>
