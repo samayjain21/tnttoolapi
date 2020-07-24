@@ -78,7 +78,6 @@ function App() {
         />
         <Route
           exact
-          // path="/teamProgressDashboard"
           path="/teamProgressDashboard/:teamId/:userId/:teamCode"
           component={TeamProgressDashboard}
         />

@@ -7,11 +7,20 @@ import BackToDashboardButton from "./../user/BackToDashBoardButton";
 import Header from "../layout/Header";
 import classnames from "classnames";
 import { getUser } from "./../../action/userAction";
+import { Redirect } from "react-router-dom";
 
 class AddTodoForm extends Component {
   constructor(props) {
+    const { userCode } = props.match.params;
     super(props);
+    const Token = sessionStorage.getItem(userCode + "Token");
+    let IsLoggedIn = true;
+    console.log(" --token --- " + Token);
+    if (Token === null) {
+      IsLoggedIn = false;
+    }
     this.state = {
+      IsLoggedIn,
       name: "",
       detail: "",
       assignedTo: "",
@@ -70,6 +79,9 @@ class AddTodoForm extends Component {
   }
 
   render() {
+    if (this.state.IsLoggedIn === false) {
+      return <Redirect to="/login" />;
+    }
     const { errors } = this.state;
     const { users } = this.props.users;
     const { teamCode, userCode } = this.props.match.params;

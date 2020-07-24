@@ -5,12 +5,20 @@ import { getUser } from "../../action/userAction";
 import { updateUserViaAdmin } from "./../../action/userAction";
 import Header from "./../layout/Header";
 import classnames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class UpdateTeamMemberAdmin extends Component {
   constructor(props) {
+    const { userId } = props.match.params;
     super(props);
+    const Token = sessionStorage.getItem(userId + "Token");
+    let IsLoggedIn = true;
+    console.log(" --token --- " + Token);
+    if (Token === null) {
+      IsLoggedIn = false;
+    }
     this.state = {
+      IsLoggedIn,
       id: "",
       name: "",
       username: "",
@@ -85,6 +93,9 @@ class UpdateTeamMemberAdmin extends Component {
       );
   }
   render() {
+    if (this.state.IsLoggedIn === false) {
+      return <Redirect to="/login" />;
+    }
     const { errors } = this.state;
     const { userId, teamId, teamCode } = this.props.match.params;
     return (
@@ -149,7 +160,7 @@ class UpdateTeamMemberAdmin extends Component {
                             <select
                               data-toggle="tooltip"
                               title="Select role here"
-                              className="form-control"
+                              className="form-control px-2"
                               name="role"
                               value={this.state.role}
                               onChange={this.onChange}
@@ -165,7 +176,7 @@ class UpdateTeamMemberAdmin extends Component {
                             <select
                               data-toggle="tooltip"
                               title="Select role here"
-                              className="form-control"
+                              className="form-control px-2"
                               name="role"
                               value={this.state.role}
                               onChange={this.onChange}

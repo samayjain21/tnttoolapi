@@ -5,13 +5,31 @@ import { connect } from "react-redux";
 import { getTodos } from "./../../action/todoAction";
 import CompletedTodoList from "./CompletedTodoList";
 import BackToDashboardButton from "./../user/BackToDashBoardButton";
+import { Redirect } from "react-router-dom";
 
 class CompletedTodo extends Component {
+  constructor(props) {
+    const { userCode } = props.match.params;
+
+    super(props);
+    const Token = sessionStorage.getItem(userCode + "Token");
+    let IsLoggedIn = true;
+    console.log(" --token --- " + Token);
+    if (Token === null) {
+      IsLoggedIn = false;
+    }
+    this.state = {
+      IsLoggedIn,
+    };
+  }
   componentDidMount() {
     const { teamCode } = this.props.match.params;
     this.props.getTodos(teamCode, this.props.history);
   }
   render() {
+    if (this.state.IsLoggedIn === false) {
+      return <Redirect to="/login" />;
+    }
     const { todos } = this.props.todos;
     const { teamCode, userCode } = this.props.match.params;
 

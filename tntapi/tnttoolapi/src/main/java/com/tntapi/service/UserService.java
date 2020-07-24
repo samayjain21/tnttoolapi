@@ -3,7 +3,6 @@ package com.tntapi.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.tntapi.domain.Team;
@@ -49,13 +48,12 @@ public class UserService {
 					team.setTeamLeadCode(user.getUserCode());
 				}
 			}
-
 			return userRepository.save(user);
 		} catch (NullPointerException ex) {
 			throw new TeamNotFoundException("team does not exist");
 		} catch (UserNotFoundException e) {
 			throw new UsernameException("user not found");
-		}catch (Exception e) {
+		} catch (Exception e) {
 			throw new UsernameException("username already exist");
 		}
 
@@ -93,35 +91,34 @@ public class UserService {
 	}
 
 	public User updateByUserCode(User updateUser, String team_id, String user_id) {
-	try {	// find the user
-		User user = findUserbyUcode(team_id, user_id);
-		Team team = teamRepository.findByTeamCode(team_id);
-		//if role is changing from team lead to team member
-		if ((user.getRole() == 2) && (updateUser.getRole() == 1)) {
-			team.setTeamLead(null);
-			team.setTeamLeadCode(null);
-		}
-		// mapping new user to old user for updating
-		user = updateUser;
-
-		// setting team Lead in team if user role is assign as team lead (i.e. 2)
-		if (updateUser.getRole() == 2) {
-			if (team.getTeamLead() == null) {
-				team.setTeamLead(user.getName());
-				team.setTeamLeadCode(user.getUserCode());
-			} else {
-				String teamLeadCode = team.getTeamLeadCode();
-				User teamLead = findUserbyUcode(team_id, teamLeadCode);
-				teamLead.setRole(1);
-				team.setTeamLead(user.getName());
-				team.setTeamLeadCode(user.getUserCode());
+		try { // find the user
+			User user = findUserbyUcode(team_id, user_id);
+			Team team = teamRepository.findByTeamCode(team_id);
+			// if role is changing from team lead to team member
+			if ((user.getRole() == 2) && (updateUser.getRole() == 1)) {
+				team.setTeamLead(null);
+				team.setTeamLeadCode(null);
 			}
+			// mapping new user to old user for updating
+			user = updateUser;
+			// setting team Lead in team if user role is assign as team lead (i.e. 2)
+			if (updateUser.getRole() == 2) {
+				if (team.getTeamLead() == null) {
+					team.setTeamLead(user.getName());
+					team.setTeamLeadCode(user.getUserCode());
+				} else {
+					String teamLeadCode = team.getTeamLeadCode();
+					User teamLead = findUserbyUcode(team_id, teamLeadCode);
+					teamLead.setRole(1);
+					team.setTeamLead(user.getName());
+					team.setTeamLeadCode(user.getUserCode());
+				}
+			}
+			// save user
+			return userRepository.save(user);
+		} catch (Exception e) {
+			throw new UsernameException("username already exisit");
 		}
-		// save user
-		return userRepository.save(user);}
-	catch (Exception e) {
-		throw new UsernameException("username already exisit");
-	}
 	}
 
 	public void deleteUser(String team_id, String user_id) {
@@ -159,7 +156,7 @@ public class UserService {
 		}
 		return user;
 	}
-	
+
 	public Iterable<User> listAllUsers() {
 		return userRepository.findAll();
 	}

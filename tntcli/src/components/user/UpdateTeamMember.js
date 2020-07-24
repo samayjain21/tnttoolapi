@@ -6,11 +6,20 @@ import { updateUser } from "./../../action/userAction";
 import BackToMemberListboardButton from "./BackToMemberListboardButton";
 import Header from "./../layout/Header";
 import classnames from "classnames";
+import { Redirect } from "react-router-dom";
 
 class UpdateTeamMember extends Component {
   constructor(props) {
+    const { userCode } = props.match.params;
     super(props);
+    const Token = sessionStorage.getItem(userCode + "Token");
+    let IsLoggedIn = true;
+    console.log(" --token --- " + Token);
+    if (Token === null) {
+      IsLoggedIn = false;
+    }
     this.state = {
+      IsLoggedIn,
       id: "",
       name: "",
       username: "",
@@ -77,11 +86,14 @@ class UpdateTeamMember extends Component {
       this.props.updateUser(teamCode, userCode, updateUser, this.props.history);
   }
   render() {
+    if (this.state.IsLoggedIn === false) {
+      return <Redirect to="/login" />;
+    }
     const { errors } = this.state;
     const { teamCode, userCode } = this.props.match.params;
     return (
       <div className="add-user">
-        <Header />
+        <Header teamCode={teamCode} userCode={userCode} />
         <BackToMemberListboardButton teamCode={teamCode} userCode={userCode} />
         <div className="add-user-form container">
           <div className="d-flex justify-content-center h-100">

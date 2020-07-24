@@ -5,16 +5,25 @@ import classnames from "classnames";
 import Header from "./../layout/Header";
 import BackToMemberListboardButton from "./BackToMemberListboardButton";
 import { createUser } from "./../../action/userAction";
+import { Redirect } from "react-router-dom";
 
 class AddTeamMember extends Component {
   constructor(props) {
+    const { userCode } = props.match.params;
     super(props);
+    const Token = sessionStorage.getItem(userCode + "Token");
+    let IsLoggedIn = true;
+    console.log(" --token --- " + Token);
+    if (Token === null) {
+      IsLoggedIn = false;
+    }
     this.state = {
       name: "",
       username: "",
       password: "password",
       role: "1",
       errors: {},
+      IsLoggedIn,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -41,6 +50,9 @@ class AddTeamMember extends Component {
       this.props.createUser(teamCode, userCode, newUser, this.props.history);
   }
   render() {
+    if (this.state.IsLoggedIn === false) {
+      return <Redirect to="/login" />;
+    }
     const { errors } = this.state;
     const { teamCode, userCode } = this.props.match.params;
     return (

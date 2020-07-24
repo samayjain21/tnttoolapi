@@ -4,14 +4,31 @@ import { PropTypes } from "prop-types";
 import { connect } from "react-redux";
 import { getTeams } from "./../../action/adminAction";
 import TeamList from "./TeamList";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class AdminDashboard extends Component {
+  constructor(props) {
+    const { userCode } = props.match.params;
+    super(props);
+    const Token = sessionStorage.getItem(userCode + "Token");
+    let IsLoggedIn = true;
+    console.log(" --token --- " + Token);
+    if (Token === null) {
+      IsLoggedIn = false;
+    }
+    this.state = {
+      IsLoggedIn,
+    };
+  }
   componentDidMount() {
     this.props.getTeams(this.props.history);
   }
 
   render() {
+    console.log("---isloggedIn -" + this.state.IsLoggedIn);
+    if (this.state.IsLoggedIn === false) {
+      return <Redirect to="/login" />;
+    }
     const { teams } = this.props.teams;
     const { teamCode, userCode } = this.props.match.params;
 

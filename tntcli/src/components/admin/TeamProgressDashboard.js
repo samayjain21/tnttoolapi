@@ -6,7 +6,7 @@ import { ProgressBar } from "react-bootstrap";
 import "react-circular-progressbar/dist/styles.css";
 import { CircularProgressbar } from "react-circular-progressbar";
 import Header from "../layout/Header";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import TeamMemberCount from "./TeamMemberCount";
 
 var totalCount = 0;
@@ -15,6 +15,19 @@ var inProgressCounter = 0;
 var completedCounter = 0;
 
 class TeamProgressDashboard extends Component {
+  constructor(props) {
+    const { userId } = props.match.params;
+    super(props);
+    const Token = sessionStorage.getItem(userId + "Token");
+    let IsLoggedIn = true;
+    console.log(" --token --- " + Token);
+    if (Token === null) {
+      IsLoggedIn = false;
+    }
+    this.state = {
+      IsLoggedIn,
+    };
+  }
   componentDidMount() {
     const { teamCode } = this.props.match.params;
     this.props.getTodos(teamCode, this.props.history);
@@ -28,6 +41,9 @@ class TeamProgressDashboard extends Component {
   }
 
   render() {
+    if (this.state.IsLoggedIn === false) {
+      return <Redirect to="/login" />;
+    }
     const { teamId, userId, teamCode } = this.props.match.params;
     const { todos } = this.props.todos;
 
@@ -188,7 +204,7 @@ class TeamProgressDashboard extends Component {
               <div className="card-header">In-progress</div>
               <div className="card-body">
                 <h5 className="card-title  font-weight-light">
-                  Todo's which are In-progress
+                  In-progress Todo's
                 </h5>
                 <p className="h2 card-text float-left"> {inProgressCounter} </p>
                 <span className="progress-svg-icon">
@@ -216,7 +232,7 @@ class TeamProgressDashboard extends Component {
               <div className="card-header">Completed</div>
               <div className="card-body">
                 <h5 className="card-title  font-weight-light">
-                  Todo's which are completed
+                  Completed Todo's
                 </h5>
                 <p className="h2 card-text float-left"> {completedCounter} </p>
                 <span className="progress-svg-icon">
@@ -244,7 +260,7 @@ class TeamProgressDashboard extends Component {
               <div className="card-header">Todo</div>
               <div className="card-body">
                 <h5 className="card-title  font-weight-light">
-                  Todo's which are In-complete
+                  Todo's Yet to Start
                 </h5>
                 <p className="h2 card-text float-left"> {todoCounter} </p>
                 <span className="progress-svg-icon">

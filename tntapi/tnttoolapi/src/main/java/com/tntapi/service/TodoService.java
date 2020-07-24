@@ -40,7 +40,7 @@ public class TodoService {
 		userTaskSequence++;
 		user.setTaskSequence(userTaskSequence);
 		todo.setTaskIdentifier(user.getUserCode() + "-" + userTaskSequence);
-		//if status is not given it will set TODO
+		//if status is not given it will set todo
 		if (todo.getStatus()== null || todo.getStatus()== "") {
             todo.setStatus("TODO");  
         }
