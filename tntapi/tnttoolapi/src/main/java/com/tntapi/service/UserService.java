@@ -1,5 +1,6 @@
 package com.tntapi.service;
 
+import java.security.MessageDigest;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.tntapi.domain.Team;
 import com.tntapi.domain.User;
+import com.tntapi.exception.PasswordDidNotMatchException;
 import com.tntapi.exception.TeamNotFoundException;
 import com.tntapi.exception.UserNotFoundException;
 import com.tntapi.exception.UsernameException;
@@ -48,6 +50,8 @@ public class UserService {
 					team.setTeamLeadCode(user.getUserCode());
 				}
 			}
+			user.setPassword(encryptor(user.getPassword()));
+			System.out.println(user.getPassword());
 			return userRepository.save(user);
 		} catch (NullPointerException ex) {
 			throw new TeamNotFoundException("team does not exist");
@@ -60,6 +64,7 @@ public class UserService {
 	}
 
 	public User findUserbyUcode(String teamCode, String userCode) {
+
 		// finding team
 		Team team = teamRepository.findByTeamCode(teamCode);
 		// if team not found
@@ -114,6 +119,7 @@ public class UserService {
 					team.setTeamLeadCode(user.getUserCode());
 				}
 			}
+			user.setPassword(encryptor(updateUser.getPassword()));
 			// save user
 			return userRepository.save(user);
 		} catch (Exception e) {
@@ -151,13 +157,53 @@ public class UserService {
 		if (user == null) {
 			throw new UserNotFoundException("username does not exists");
 		}
+		password= encryptor(password);
 		if (!user.getPassword().equals(password)) {
 			throw new UserNotFoundException("worng password");
 		}
 		return user;
 	}
 
+	public User updateCredentails(String username,String oldPassword, String newPassword) {
+		User user = userRepository.findUserByUsername(username);
+		if (user == null) {
+			throw new UserNotFoundException("username does not exists");
+		}
+		oldPassword = encryptor(oldPassword);
+		System.out.println("--Db entered--"+user.getPassword());
+		System.out.println("--old pass entered--"+oldPassword);
+		if (!user.getPassword().equals(oldPassword)) {
+			throw new PasswordDidNotMatchException("Your password did not match with the current password");
+		}
+		user.setPassword(encryptor(newPassword));
+		userRepository.save(user);
+		return user;
+	}
+	
 	public Iterable<User> listAllUsers() {
 		return userRepository.findAll();
 	}
+	
+	public String encryptor(String password) {
+		 String algorithm = "SHA";
+		 StringBuilder encryptedPassword = new StringBuilder();
+		    try {
+		        MessageDigest md = MessageDigest.getInstance(algorithm);
+		        md.reset();
+		        md.update(password.getBytes());
+		        byte[] encodedPassword = md.digest();
+		        
+		        for (int i = 0; i < encodedPassword.length; i++) {
+		            if ((encodedPassword[i] & 0xff) < 0x10) {
+		                encryptedPassword.append("0");
+		            }
+		            encryptedPassword.append(Long.toString(encodedPassword[i] & 0xff, 16));
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+			return encryptedPassword.toString();
+		}
+	
 }

@@ -5,14 +5,15 @@ public class TeamIdExceptionResponse {
 	private String teamCode;
 	 public TeamIdExceptionResponse(String teamCode) {
 		 super();
-		 this.teamCode =teamCode;
+		 this.setTeamCode(teamCode);
 	 }
-	public String getTeamId() {
+	public String getTeamCode() {
 		return teamCode;
 	}
-	public void setTeamId(String teamCode) {
+	public void setTeamCode(String teamCode) {
 		this.teamCode = teamCode;
 	}
+	
 	 
 	 
 	 

@@ -29,6 +29,7 @@ class AdminDashboard extends Component {
     if (this.state.IsLoggedIn === false) {
       return <Redirect to="/login" />;
     }
+
     const { teams } = this.props.teams;
     const { teamCode, userCode } = this.props.match.params;
 

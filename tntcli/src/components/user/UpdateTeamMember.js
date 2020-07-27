@@ -4,9 +4,9 @@ import { PropTypes } from "prop-types";
 import { getUser } from "../../action/userAction";
 import { updateUser } from "./../../action/userAction";
 import BackToMemberListboardButton from "./BackToMemberListboardButton";
-import Header from "./../layout/Header";
 import classnames from "classnames";
 import { Redirect } from "react-router-dom";
+import PlainHeader from "./../layout/PlainHeader";
 
 class UpdateTeamMember extends Component {
   constructor(props) {
@@ -93,7 +93,7 @@ class UpdateTeamMember extends Component {
     const { teamCode, userCode } = this.props.match.params;
     return (
       <div className="add-user">
-        <Header teamCode={teamCode} userCode={userCode} />
+        <PlainHeader />
         <BackToMemberListboardButton teamCode={teamCode} userCode={userCode} />
         <div className="add-user-form container">
           <div className="d-flex justify-content-center h-100">

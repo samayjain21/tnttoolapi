@@ -80,4 +80,13 @@ public class UserController {
 	public Iterable<User> findAllUsers() {
 		return userService.listAllUsers();
 	}
+	
+	@PatchMapping("/{username}/{oldpass}/{newpass}")
+	public ResponseEntity<?> updateUserCredentails(@PathVariable String username,
+			@PathVariable String oldpass,@PathVariable String newpass){
+		User updateUser = userService.updateCredentails(username, oldpass, newpass);
+		return new ResponseEntity<User>(updateUser,HttpStatus.OK);
+	}
+	
+	
 }

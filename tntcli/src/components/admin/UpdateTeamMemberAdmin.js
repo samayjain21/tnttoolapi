@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { PropTypes } from "prop-types";
 import { getUser } from "../../action/userAction";
 import { updateUserViaAdmin } from "./../../action/userAction";
-import Header from "./../layout/Header";
 import classnames from "classnames";
 import { Link, Redirect } from "react-router-dom";
+import PlainHeader from "./../layout/PlainHeader";
 
 class UpdateTeamMemberAdmin extends Component {
   constructor(props) {
@@ -100,7 +100,7 @@ class UpdateTeamMemberAdmin extends Component {
     const { userId, teamId, teamCode } = this.props.match.params;
     return (
       <div className="add-user">
-        <Header teamCode={teamId} userCode={userId} />
+        <PlainHeader />
         <Link
           to={`/listTeamMember/${teamId}/${userId}/${teamCode}`}
           type="button"
