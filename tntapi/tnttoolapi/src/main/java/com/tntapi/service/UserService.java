@@ -2,13 +2,15 @@ package com.tntapi.service;
 
 import java.security.MessageDigest;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.tntapi.domain.Team;
 import com.tntapi.domain.User;
-import com.tntapi.exception.PasswordDidNotMatchException;
+import com.tntapi.exception.PasswordException;
 import com.tntapi.exception.TeamNotFoundException;
 import com.tntapi.exception.UserNotFoundException;
 import com.tntapi.exception.UsernameException;
@@ -50,8 +52,10 @@ public class UserService {
 					team.setTeamLeadCode(user.getUserCode());
 				}
 			}
+			if (!isValidPassword(user.getPassword())) {
+				throw new PasswordException("Password must be of minimum 8 character and maximam 20 character, it should contain atleast one upper case letter, lower case Letter & a number");
+			}
 			user.setPassword(encryptor(user.getPassword()));
-			System.out.println(user.getPassword());
 			return userRepository.save(user);
 		} catch (NullPointerException ex) {
 			throw new TeamNotFoundException("team does not exist");
@@ -120,7 +124,7 @@ public class UserService {
 				}
 			}
 			user.setPassword(encryptor(updateUser.getPassword()));
-			// save user
+			 // save user
 			return userRepository.save(user);
 		} catch (Exception e) {
 			throw new UsernameException("username already exisit");
@@ -155,55 +159,80 @@ public class UserService {
 	public User userLoginCheck(String username, String password) {
 		User user = userRepository.findUserByUsername(username);
 		if (user == null) {
-			throw new UserNotFoundException("username does not exists");
+			throw new UserNotFoundException(
+					"The username you entered doesn't belong to an account. Please check your username and try again.");
 		}
-		password= encryptor(password);
+		password = encryptor(password);
 		if (!user.getPassword().equals(password)) {
-			throw new UserNotFoundException("worng password");
+			throw new UserNotFoundException("Sorry, your password was incorrect. Please double-check your password.");
 		}
 		return user;
 	}
 
-	public User updateCredentails(String username,String oldPassword, String newPassword) {
+	public User updateCredentails(String username, String oldPassword, String newPassword) {
 		User user = userRepository.findUserByUsername(username);
 		if (user == null) {
 			throw new UserNotFoundException("username does not exists");
 		}
 		oldPassword = encryptor(oldPassword);
-		System.out.println("--Db entered--"+user.getPassword());
-		System.out.println("--old pass entered--"+oldPassword);
+		System.out.println("--Db entered--" + user.getPassword());
+		System.out.println("--old pass entered--" + oldPassword);
 		if (!user.getPassword().equals(oldPassword)) {
-			throw new PasswordDidNotMatchException("Your password did not match with the current password");
+			throw new PasswordException("Your password did not match with the current password");
+		}
+		if (!isValidPassword(newPassword)) {
+			throw new PasswordException("Password must be of minimum 8 character and maximam 20 character, it should contain atleast one upper case letter, lower case Letter & a number");
 		}
 		user.setPassword(encryptor(newPassword));
 		userRepository.save(user);
 		return user;
 	}
-	
+
 	public Iterable<User> listAllUsers() {
 		return userRepository.findAll();
 	}
-	
-	public String encryptor(String password) {
-		 String algorithm = "SHA";
-		 StringBuilder encryptedPassword = new StringBuilder();
-		    try {
-		        MessageDigest md = MessageDigest.getInstance(algorithm);
-		        md.reset();
-		        md.update(password.getBytes());
-		        byte[] encodedPassword = md.digest();
-		        
-		        for (int i = 0; i < encodedPassword.length; i++) {
-		            if ((encodedPassword[i] & 0xff) < 0x10) {
-		                encryptedPassword.append("0");
-		            }
-		            encryptedPassword.append(Long.toString(encodedPassword[i] & 0xff, 16));
-		        }
 
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-			return encryptedPassword.toString();
+	public String encryptor(String password) {
+		String algorithm = "SHA";
+		StringBuilder encryptedPassword = new StringBuilder();
+		try {
+			MessageDigest md = MessageDigest.getInstance(algorithm);
+			md.reset();
+			md.update(password.getBytes());
+			byte[] encodedPassword = md.digest();
+
+			for (int i = 0; i < encodedPassword.length; i++) {
+				if ((encodedPassword[i] & 0xff) < 0x10) {
+					encryptedPassword.append("0");
+				}
+				encryptedPassword.append(Long.toString(encodedPassword[i] & 0xff, 16));
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	
+		return encryptedPassword.toString();
+	}
+
+	public static boolean isValidPassword(String password) {
+		String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=\\S+$).{8,20}$";
+
+		// Compile the ReGex
+		Pattern p = Pattern.compile(regex);
+
+		// If the password is empty
+		// return false
+		if (password == null) {
+			return false;
+		}
+
+		// Pattern class contains matcher() method
+		// to find matching between given password
+		// and regular expression.
+		Matcher m = p.matcher(password);
+
+		// Return if the password
+		// matched the ReGex
+		return m.matches();
+	}
 }

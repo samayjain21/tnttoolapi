@@ -19,7 +19,7 @@ class AddTeamMemberAdmin extends Component {
       IsLoggedIn,
       name: "",
       username: "",
-      password: "password",
+      password: "Password2020",
       role: "",
       errors: {},
     };
@@ -91,6 +91,7 @@ class AddTeamMemberAdmin extends Component {
                       name="name"
                       value={this.state.name}
                       onChange={this.onChange}
+                      required
                     />
                     {errors.name && (
                       <div className="invalid-feedback">{errors.name}</div>
@@ -108,6 +109,7 @@ class AddTeamMemberAdmin extends Component {
                       name="username"
                       value={this.state.username}
                       onChange={this.onChange}
+                      required
                     />
                     {errors.username && (
                       <div className="invalid-feedback">{errors.username}</div>

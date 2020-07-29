@@ -6,17 +6,18 @@ public class UsernameExceptionResponse {
 
 	public UsernameExceptionResponse(String username) {
 		super();
-		this.username = username;
+		this.setUsername(username);
 	}
 
-	public String getUserCode() {
+	public String getUsername() {
 		return username;
 	}
 
-	public void setUserCode(String username) {
+	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
+
 	
 	
 }

@@ -1,10 +1,10 @@
 package com.tntapi.exception;
 
-public class PasswordDidNotMatchExceptionResponse {
+public class PasswordExceptionResponse {
 
 	private String password;
 
-	public PasswordDidNotMatchExceptionResponse(String password) {
+	public PasswordExceptionResponse(String password) {
 		super();
 		this.setPassword(password);
 	}

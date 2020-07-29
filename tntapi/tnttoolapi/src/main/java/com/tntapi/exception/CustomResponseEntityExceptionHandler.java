@@ -48,8 +48,8 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
 	}
 	
 	@ExceptionHandler
-	public final ResponseEntity<Object> PasswordDidNotMatchException(PasswordDidNotMatchException ex, WebRequest request){
-		PasswordDidNotMatchExceptionResponse exceptionResponse = new PasswordDidNotMatchExceptionResponse(ex.getMessage());
+	public final ResponseEntity<Object> PasswordException(PasswordException ex, WebRequest request){
+		PasswordExceptionResponse exceptionResponse = new PasswordExceptionResponse(ex.getMessage());
 		return new ResponseEntity<Object>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 

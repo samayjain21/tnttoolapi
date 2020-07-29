@@ -81,6 +81,8 @@ class UpdateUserCredentials extends Component {
   onSubmit(event) {
     event.preventDefault();
     const { teamCode, userCode } = this.props.match.params;
+    this.setState({ errorMessage: "" });
+
     if (this.state.newPassword && this.state.confirmPassword !== "") {
       if (this.state.newPassword === this.state.confirmPassword) {
         const updatedUser = {
@@ -103,6 +105,10 @@ class UpdateUserCredentials extends Component {
             this.state.confirmPassword,
             this.props.history
           );
+
+        this.setState({ confirmPassword: "" });
+        this.setState({ newPassword: "" });
+        this.setState({ currentPassword: "" });
       } else {
         this.setState({ errorMessage: "Your password did not match" });
         this.setState({ confirmPassword: "" });
@@ -222,11 +228,6 @@ class UpdateUserCredentials extends Component {
                         value={this.state.currentPassword}
                         onChange={this.onChange}
                       />
-                      {errors.password && (
-                        <div className="invalid-feedback">
-                          {errors.password}
-                        </div>
-                      )}
                     </div>
                     <div className="show-pass">
                       <span
@@ -254,7 +255,9 @@ class UpdateUserCredentials extends Component {
                         type={
                           this.state.newPasswordHidden ? "password" : "text"
                         }
-                        className="form-control"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.password,
+                        })}
                         placeholder="Enter New Password"
                         name="newPassword"
                         value={this.state.newPassword}
@@ -278,12 +281,19 @@ class UpdateUserCredentials extends Component {
                         type={
                           this.state.newPasswordHidden ? "password" : "text"
                         }
-                        className="form-control"
+                        className={classnames("form-control", {
+                          "is-invalid": errors.password,
+                        })}
                         placeholder="Re-Enter New Password"
                         name="confirmPassword"
                         value={this.state.confirmPassword}
                         onChange={this.onChange}
                       />
+                      {errors.password && (
+                        <div className="invalid-feedback">
+                          {errors.password}
+                        </div>
+                      )}
                     </div>
                     <div className="show-pass">
                       <span type="button" onClick={this.toggleShowNewPassword}>
@@ -291,7 +301,11 @@ class UpdateUserCredentials extends Component {
                       </span>
                     </div>
                   </div>
-                  <div className="text-danger">{this.state.errorMessage}</div>
+                  <div className="mt-n3">
+                    <small className="text-danger ml-5 ">
+                      {this.state.errorMessage}
+                    </small>
+                  </div>
                   <input type="submit" className="btn float-right login_btn" />
                 </form>
               </div>
