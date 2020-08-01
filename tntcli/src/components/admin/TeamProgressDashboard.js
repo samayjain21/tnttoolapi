@@ -20,7 +20,6 @@ class TeamProgressDashboard extends Component {
     super(props);
     const Token = sessionStorage.getItem(userId + "Token");
     let IsLoggedIn = true;
-    console.log(" --token --- " + Token);
     if (Token === null) {
       IsLoggedIn = false;
     }
@@ -62,30 +61,15 @@ class TeamProgressDashboard extends Component {
           {todos.map((todo) =>
             (() => {
               totalCount++;
-              console.log(
-                "totoal todo ----------------------------------" + totalCount
-              );
               switch (todo.status) {
                 case "Completed":
                   completedCounter++;
-                  console.log(
-                    "completedCounter ---------------------------------- " +
-                      completedCounter
-                  );
                   return;
                 case "TODO":
                   todoCounter++;
-                  console.log(
-                    "todoCounter ----------------------------------" +
-                      todoCounter
-                  );
                   return;
                 case "In-Progress":
                   inProgressCounter++;
-                  console.log(
-                    "inProgressCounter ----------------------------------" +
-                      inProgressCounter
-                  );
                   return;
                 default:
                   return;

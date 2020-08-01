@@ -14,11 +14,11 @@ class ListTeamMember extends Component {
     super(props);
     const Token = sessionStorage.getItem(userCode + "Token");
     let IsLoggedIn = true;
-    console.log(" --token --- " + Token);
     if (Token === null) {
       IsLoggedIn = false;
     }
     this.state = {
+      search: "",
       IsLoggedIn,
     };
   }
@@ -26,11 +26,19 @@ class ListTeamMember extends Component {
     const { teamCode } = this.props.match.params;
     this.props.getUsers(teamCode, this.props.history);
   }
+  updateSearch(event) {
+    this.setState({ search: event.target.value });
+  }
   render() {
     if (this.state.IsLoggedIn === false) {
       return <Redirect to="/login" />;
     }
     const { users } = this.props.users;
+    let filteredUsers = users.filter((user) => {
+      return (
+        user.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+      );
+    });
     const { teamCode, userCode } = this.props.match.params;
     return (
       <div>
@@ -46,7 +54,20 @@ class ListTeamMember extends Component {
           </Link>
         </div>
         <p>
-          {users.map((user) => (
+          <div id="team-member-search">
+            <form action="" autocomplete="on">
+              <input
+                value={this.state.search}
+                onChange={this.updateSearch.bind(this)}
+                id="search"
+                name="search"
+                type="text"
+                placeholder="Search..."
+              />
+              <input type="search" />
+            </form>
+          </div>
+          {filteredUsers.map((user) => (
             <span>
               <UserItem key={user.id} user={user} userCode={userCode} />
             </span>

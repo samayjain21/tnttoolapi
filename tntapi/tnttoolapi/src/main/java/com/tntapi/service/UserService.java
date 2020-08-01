@@ -53,7 +53,9 @@ public class UserService {
 				}
 			}
 			if (!isValidPassword(user.getPassword())) {
-				throw new PasswordException("Password must be of minimum 8 character and maximam 20 character, it should contain atleast one upper case letter, lower case Letter & a number");
+				throw new PasswordException("Password must be of minimum 8 "
+						+ "character and maximam 20 character, it should contain "
+						+ "atleast one upper case letter, lower case Letter & a number");
 			}
 			user.setPassword(encryptor(user.getPassword()));
 			return userRepository.save(user);
@@ -122,6 +124,11 @@ public class UserService {
 					team.setTeamLead(user.getName());
 					team.setTeamLeadCode(user.getUserCode());
 				}
+			}
+			if (!isValidPassword(user.getPassword())) {
+				throw new PasswordException("Password must be of minimum 8 "
+						+ "character and maximam 20 character, it should contain "
+						+ "atleast one upper case letter, lower case Letter & a number");
 			}
 			user.setPassword(encryptor(updateUser.getPassword()));
 			 // save user
@@ -216,16 +223,13 @@ public class UserService {
 
 	public static boolean isValidPassword(String password) {
 		String regex = "^(?=.*[0-9])" + "(?=.*[a-z])(?=.*[A-Z])" + "(?=\\S+$).{8,20}$";
-
 		// Compile the ReGex
 		Pattern p = Pattern.compile(regex);
-
 		// If the password is empty
 		// return false
 		if (password == null) {
 			return false;
 		}
-
 		// Pattern class contains matcher() method
 		// to find matching between given password
 		// and regular expression.

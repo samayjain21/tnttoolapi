@@ -12,18 +12,16 @@ class TeamMemberCount extends Component {
   componentWillUnmount() {
     memberCount = 0;
   }
+  increment() {
+    memberCount = memberCount + 1;
+  }
   render() {
     const { users } = this.props.users;
     return (
       <div>
         <p>
           {users.map((user) => (
-            <span>
-              {
-                (memberCount++,
-                console.log("memberCount = == = = =  =-" + memberCount))
-              }
-            </span>
+            <span>{this.increment()}</span>
           ))}
         </p>
         {memberCount}

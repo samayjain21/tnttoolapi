@@ -12,11 +12,11 @@ class AllTeamMember extends Component {
     super(props);
     const Token = sessionStorage.getItem(userCode + "Token");
     let IsLoggedIn = true;
-    console.log(" --token --- " + Token);
     if (Token === null) {
       IsLoggedIn = false;
     }
     this.state = {
+      search: "",
       IsLoggedIn,
     };
   }
@@ -27,11 +27,19 @@ class AllTeamMember extends Component {
   componentWillUnmount() {
     window.location.reload(false);
   }
+  updateSearch(event) {
+    this.setState({ search: event.target.value });
+  }
   render() {
     if (this.state.IsLoggedIn === false) {
       return <Redirect to="/login" />;
     }
     const { users } = this.props.users;
+    let filteredUsers = users.filter((user) => {
+      return (
+        user.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+      );
+    });
     const { teamCode, userCode, teamId } = this.props.match.params;
     return (
       <div>
@@ -49,11 +57,24 @@ class AllTeamMember extends Component {
             className="add-member-btn rounded  btn btn-success px-3 mt-n4 mr-5"
             to={`/addMember/${teamId}/${userCode}/${teamCode}`}
           >
-            <i className="fas fa-user-plus"></i> Add Member
+            <i class="fas fa-user-plus"></i> Add Member
           </Link>
         </div>
         <p>
-          {users.map((user) => (
+          <div id="team-member-search">
+            <form action="" autocomplete="on">
+              <input
+                value={this.state.search}
+                onChange={this.updateSearch.bind(this)}
+                id="search"
+                name="search"
+                type="text"
+                placeholder="Search..."
+              />
+              <input type="search" />
+            </form>
+          </div>
+          {filteredUsers.map((user) => (
             <span>
               <UserItemAdmin
                 key={user.id}

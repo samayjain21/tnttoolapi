@@ -13,11 +13,11 @@ class ListPeers extends Component {
     super(props);
     const Token = sessionStorage.getItem(userCode + "Token");
     let IsLoggedIn = true;
-    console.log(" --token --- " + Token);
     if (Token === null) {
       IsLoggedIn = false;
     }
     this.state = {
+      search: "",
       IsLoggedIn,
     };
   }
@@ -25,33 +25,50 @@ class ListPeers extends Component {
     const { teamCode } = this.props.match.params;
     this.props.getUsers(teamCode, this.props.history);
   }
-
+  updateSearch(event) {
+    this.setState({ search: event.target.value });
+  }
   render() {
     if (this.state.IsLoggedIn === false) {
       return <Redirect to="/login" />;
     }
     const { users } = this.props.users;
+    let filteredUsers = users.filter((user) => {
+      return (
+        user.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1
+      );
+    });
     const { teamCode, userCode } = this.props.match.params;
     return (
       <div>
         <Header teamCode={teamCode} userCode={userCode} />
         <BackToTeamMemberDashBoard teamCode={teamCode} userCode={userCode} />
-        {users.map((user) => (
+        <div id="all_team-member-search">
+          <form action="" autocomplete="on">
+            <input
+              value={this.state.search}
+              onChange={this.updateSearch.bind(this)}
+              id="search"
+              name="search"
+              type="text"
+              placeholder="Search..."
+            />
+            <input type="search" />
+          </form>
+        </div>
+        {filteredUsers.map((user) => (
           <div className="container list-team-peer">
             <div className="card card-body list-peer mb-3">
               <div className="row">
-                <div className="list-peer-detail px-5">
-                  <h3>
-                    <span>
-                      {user.name}
-                      <span className="font-italic h6">
-                        {" "}
-                        ({user.username}){" "}
-                      </span>
-                    </span>
-                  </h3>
+                <div className="list-peer-detail px-3">
+                  <h4>
+                    <span>{user.name}</span>
+                  </h4>
                   <small>
                     User Id : <span>{user.userCode}</span>
+                  </small>{" "}
+                  <small className="font-italic text-light">
+                    ({user.username}){" "}
                   </small>{" "}
                   <small>
                     {(() => {

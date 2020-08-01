@@ -42,7 +42,6 @@ class Header extends Component {
   }
 
   logout() {
-    console.log("Sending a logout request to the API...");
     this.redirect();
   }
 
@@ -59,7 +58,6 @@ class Header extends Component {
   }
   logOutMessage = () => {
     const { userCode } = this.props;
-    console.log("-----role-- " + this.state.role);
     sessionStorage.removeItem(userCode + "Token");
 
     const key = "updatable";
@@ -86,7 +84,6 @@ class Header extends Component {
   };
   render() {
     const { teamCode, userCode } = this.props;
-    console.log("------user code header - " + userCode);
     return (
       <div id="main-header">
         <nav className=" navbar navbar-expand-sm  mb-4 mx-5">
@@ -128,15 +125,15 @@ class Header extends Component {
                     className="dropdown-item"
                     to={`/updateUserCredentials/${teamCode}/${userCode}`}
                   >
-                    Manage Credentials{" "}
-                    <i className="fa fa-cog fa-spin fa-1x"></i>
+                    <i className="fa fa-cog fa-spin fa-1x"></i> Manage
+                    Credentials
                   </Link>
                   <Link
                     className="dropdown-item"
                     onClick={this.logOutMessage.bind()}
-                    to="/"
+                    to="/login"
                   >
-                    Sign Out <i className="fas fa-sign-out-alt"></i>
+                    <i className="fas fa-sign-out-alt"></i> Sign Out
                   </Link>
                 </div>
               </li>
